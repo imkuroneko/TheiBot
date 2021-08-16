@@ -3,9 +3,9 @@
 Pequeña base de bot utilitario para Discord, estará siendo actualizada de forma periódica según encuentre cosas de mi interés para ir implementándole.
 
 
-### 📚 Lenguajes & Librerías Utilizadas
+### 📚 Librerías Utilizadas
 ```
-NodeJS v16 / discord.js v13 / @discordjs/voice
+discord.js v13 & @discordjs/voice
 ```
 
 ### 🧰 Utilidades Implementadas
@@ -23,7 +23,11 @@ NodeJS v16 / discord.js v13 / @discordjs/voice
 - Sistema de votaciones (preferentemente sin BD)
 - Mejorar mensajes de auditoría en general
 
+-----
 
+![GitHub repo size](https://img.shields.io/github/repo-size/imkuroneko/TheiBot?style=flat)
+![GitHub top language](https://img.shields.io/github/languages/top/imkuroneko/TheiBot?style=flat)
+![GitHub last commit](https://img.shields.io/github/last-commit/imkuroneko/TheiBot?color=pink&style=flat)
 
 -----
 
