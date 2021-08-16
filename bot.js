@@ -3,6 +3,7 @@ const config = require('./appconfig.json');
 
 /* == Load bot resources ============================================================================ */
 const { Client, Intents } = require('discord.js');
+const stringSimilarity = require("string-similarity");
 
 /* == Set bot token & define discord intents ======================================================== */
 const fg = Intents.FLAGS;
@@ -19,7 +20,7 @@ client.login(config.discordBot.token);
 
 /* == On bot ready ================================================================================== */
 client.on('ready', ()=> {
-    client.user.setActivity('con Nutella 🍪🍫', {type: 'PLAYING'});
+    client.user.setActivity('nuggots! 🍗', {type: 'WATCHING'});
 
     const { joinVoiceChannel } = require('@discordjs/voice');
     const voiceChannel = client.channels.cache.get(config.presenceChannels.voice);
@@ -36,9 +37,29 @@ client.on('ready', ()=> {
 
 /* == Monitor received messages ===================================================================== */
 client.on('messageCreate', msg => {
+    if(msg.author.bot) { return; } 
+
     const sender = client.channels.cache.find(channel => channel.id == msg.channel.id);
 
     message = msg.content.toLocaleLowerCase().trim();
+
+    sendNuggot = false;
+    nuggots_ = ['nugget', 'nuggot', 'nyuggot'];
+
+    for(let index = 0; index < nuggots_.length; index++) {
+        if(message.includes(nuggots_[index])) {
+            sendNuggot = true;
+        }
+        if(stringSimilarity.compareTwoStrings(message, nuggots_[index]) > 0.75) {
+            sendNuggot = true;
+        }
+    }
+
+    if(sendNuggot) {
+        msg.react('864676232737718292');
+        msg.reply("Gimme nuggots! <:nuggots:864676232737718292>");
+    }
+
 });
 
 
