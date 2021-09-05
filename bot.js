@@ -2,8 +2,8 @@
 const config = require('./appconfig.json');
 
 /* == Load bot resources ============================================================================ */
-const { Client, Intents } = require('discord.js');
-const stringSimilarity = require("string-similarity");
+const { Client, Intents, MessageAttachment } = require('discord.js');
+const { drawCard } = require('discord-welcome-card');
 
 /* == Set bot token & define discord intents ======================================================== */
 const fg = Intents.FLAGS;
@@ -32,32 +32,121 @@ client.on('ready', ()=> {
         selfDeaf: false
     });
 
-    console.log('%cBot Iniciado exitosamente', 'color:green');
+    console.log('Bot Iniciado exitosamente');
 });
+
 
 /* == Monitor received messages ===================================================================== */
 client.on('messageCreate', msg => {
+    // Evitar bots
     if(msg.author.bot) { return; } 
 
+    // Helper para envío de mensaje
     const sender = client.channels.cache.find(channel => channel.id == msg.channel.id);
 
-    message = msg.content.toLocaleLowerCase().trim();
+    // Contenido del mensaje [inicial]
+    msg_guild   = msg.guild;
+    msg_content = msg.content.toLocaleLowerCase().trim();
 
-    sendNuggot = false;
-    nuggots_ = ['nugget', 'nuggot', 'nyuggot'];
-
+    // Thei loves nuggots 🍗
+    nuggots_ = ['nugget', 'nuggot', 'nyuggot', 'nuggat'];
     for(let index = 0; index < nuggots_.length; index++) {
-        if(message.includes(nuggots_[index])) {
-            sendNuggot = true;
-        }
-        if(stringSimilarity.compareTwoStrings(message, nuggots_[index]) > 0.75) {
-            sendNuggot = true;
+        if(msg_content.includes(nuggots_[index])) {
+            msg.react('864676232737718292');
+            msg.reply("Gimme nuggots! <:nuggots:864676232737718292>");
         }
     }
 
-    if(sendNuggot) {
-        msg.react('864676232737718292');
-        msg.reply("Gimme nuggots! <:nuggots:864676232737718292>");
+    // Thei is watching you 👀
+    if(msg_content.includes('thei')) {
+        // sender.send({ stickers: ['860998687735021598'] });
+        msg.react('👀');
+        msg.react('🦄');
+        msg.react('🔪');
+        msg.reply("How dare you hooman! ");
+    }
+    
+    // Verificación de contenido y prefix de comando
+    if(msg_content.replace(config.discordBot.commandPrefix, '').trim().length == 0) { return; }
+
+
+    // Contenido separado para mejor uso
+    const command = msg_content.split(' ')[0].substring(1).toLowerCase();
+    const param   = msg_content.replace(config.discordBot.commandPrefix, '').replace(command+' ', '');
+
+    // Get Tagged User
+    mentioned = msg.mentions.users.first();
+    if(mentioned !== undefined) {
+        param = msg.mentions.users.first().id;
+    }
+
+    switch(command) {
+        case 'serverinfo':
+            let level         = msg_guild.premiumTier === 0 ? msg_guild.premiumTier : msg_guild.premiumTier.replace('TIER_', '');
+            let boost         = msg_guild.premiumSubscriptionCount;
+            let owner         = msg_guild.ownerId;
+            let guild         = msg_guild.name;
+            let channel_count = msg_guild.channels.cache.size;
+            let roles_count   = msg_guild.roles.cache.size;
+            let members_count = msg_guild.memberCount;
+
+            sender.send({ embeds: [{
+                color: 0xcc3366,
+                fields: [
+                    {
+                        name: '📦⠀Nombre del Servidor',
+                        value: `⠀\`${guild}\``
+                    },
+                    {
+                        name: '💎⠀Mejoras del Servidor',
+                        value: `⠀**Boosts:** \`${boost}\`\n⠀**Nivel:** \`${level}\``
+                    },
+                    {
+                        name: '👰🏻⠀Owner',
+                        value: "⠀<@"+owner+">"
+                    },
+                    {
+                        name: '🔢⠀Detalles',
+                        value: `⠀**Canales:** \`${channel_count}\`\n⠀**Roles:** \`${roles_count}\`\n⠀**Usuarios:** \`${members_count}\``
+                    }
+                ]
+            }] });
+            break;
+        // ================================================================================================================================
+        case 'botinfo':
+            sender.send({ embeds: [{
+                color: 0x9c5bde,
+                fields: [
+                    {
+                        name: "🏷⠀Versión",
+                        value: "```<:tag:818254431308349461> 1.0.1 · 2021-09-04 ```"
+                    },
+                    {
+                        name: "💻⠀Recuros",
+                        value: "<:nodejs:818254431844827158> `node.js v16.6.2`; `pm2 v5.1.0`; `discord.js v13`; `discord-welcome-card v3.7.5`, `@discordjs/voice v0.5.5`"
+                    },
+                    {
+                        name: "👰🏻⠀Developer",
+                        value: "`[@imkuroneko](https://github.com/imkuroneko)`"
+                    },
+                    {
+                        name: "⛓⠀Repositorio",
+                        value: "<:github:818254431363530753> https://github.com/imkuroneko/TheiBot"
+                    },
+                ]
+            }] });
+            break;
+        // ================================================================================================================================
+        case 'acercade':
+            sender.send({ embeds: [{
+                color: 0xeb5b8b,
+                fields: [
+                    { name: "👰🏻⠀Sobre Mí", value: "```25 años; De alguna parte de LATAM```" },
+                    { name: "🌸⠀Hobbies", value: "```👰🏻 Cosplayer; 🎥 Streamer; 💻 Web Developer & DBA; 🔐 SysOp Jr; 🤖 Discord Bot Developer;```" },
+                    { name: "⛓⠀Repositorio", value: "https://github.com/imkuroneko" },
+                ]
+            }] });
+            break;
     }
 
 });
@@ -137,13 +226,30 @@ client.on('messageReactionRemove', async (reaction, user) => {
 
 
 /* == Monitor User Events =========================================================================== */
-client.on('guildMemberAdd', (member) => {
+client.on('guildMemberAdd', async (member) => {
     var user     = member.user.tag;
     var userId   = member.user.id;
     var username = member.user.username;
     var avatar   = member.user.displayAvatarURL();
 
     const sender_welcome = client.channels.cache.find(channel => channel.id == config.discordGuild.welcomeChannel);
+
+    welcome_card = await drawCard({
+        blur: true,
+        title: 'Bienvenido!',
+        text: `${user}`,
+        subtitle: 'se ha unido al servidor',
+        theme:  { image: config.discordBot.welcomeBackgroundImg, color: config.discordBot.welcomeTextColor },
+        rounded: true,
+        border: true,
+        avatar: member.user.displayAvatarURL({ format: 'png' })
+    });
+
+    buffer_image = new MessageAttachment(welcome_card, 'welcome.png');
+
+    sender_welcome.send({ files: [{ attachment: welcome_card }] });
+
+/*
     sender_welcome.send({ embeds: [{
         color: config.embeds.morado,
         title: 'Bienvenido '+username+' al servidor 👋🏻',
@@ -156,6 +262,8 @@ client.on('guildMemberAdd', (member) => {
         ],
         footer: config.embeds.footer
     }] });
+*/
+
 
     const sender_log = client.channels.cache.find(channel => channel.id == config.channelsLogs.in_out);
     sender_log.send({ embeds: [{

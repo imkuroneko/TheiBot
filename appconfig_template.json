@@ -1,7 +1,10 @@
 {
     "discordBot": {
         "id" : "",
-        "token" : ""
+        "token" : "",
+        "welcomeBackgroundImg" : "https://media.discordapp.net/attachments/881637454640185406/881637578086953000/card.png",
+        "welcomeTextColor" : "#f1f1f1",
+        "commandPrefix" : ""
     },
 
     "discordGuild": {
@@ -23,18 +26,18 @@
     },
 
     "decorativeRoles": {
-        "developer" : "",
-        "artist" : "",
-        "gamer" : "",
-        "streamer" : ""
+        "role_1_decor" : "",
+        "role_2_decor" : "",
+        "role_3_decor" : "",
+        "role_4_decor" : ""
     },
 
     "uniqueRoles": {
-        "red" : "",
-        "purple" : "",
-        "green" : "",
-        "yellow" : "",
-        "blue" : ""
+        "role_1_uniq" : "",
+        "role_2_uniq" : "",
+        "role_3_uniq" : "",
+        "role_4_uniq" : "",
+        "role_5_uniq" : ""
     },
 
     "channelsLogs": {
