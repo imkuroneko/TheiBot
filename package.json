@@ -20,6 +20,7 @@
 		"@discordjs/voice": "^0.5.5",
 		"discord-welcome-card": "^3.7.5",
 		"discord.js": "^13.0.0",
-		"libsodium-wrappers": "^0.7.9"
+		"libsodium-wrappers": "^0.7.9",
+		"pino": "^7.0.0-rc.6"
 	}
 }

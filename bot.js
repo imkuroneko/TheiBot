@@ -3,7 +3,7 @@ const config = require('./appconfig.json');
 
 /* == Load bot resources ============================================================================ */
 const { Client, Intents, MessageAttachment } = require('discord.js');
-const { drawCard } = require('discord-welcome-card');
+// const { drawCard } = require('discord-welcome-card');
 
 /* == Set bot token & define discord intents ======================================================== */
 const fg = Intents.FLAGS;
@@ -47,6 +47,9 @@ client.on('messageCreate', msg => {
     // Contenido del mensaje [inicial]
     msg_guild   = msg.guild;
     msg_content = msg.content.toLocaleLowerCase().trim();
+
+    // Evitar que el bot no actue en otro discord
+    if(msg_guild != config.discordGuild.guildId) { return; }
 
     // Thei loves nuggots 🍗
     nuggots_ = ['nugget', 'nuggot', 'nyuggot', 'nuggat'];
@@ -117,22 +120,10 @@ client.on('messageCreate', msg => {
             sender.send({ embeds: [{
                 color: 0x9c5bde,
                 fields: [
-                    {
-                        name: "🏷⠀Versión",
-                        value: "```<:tag:818254431308349461> 1.0.1 · 2021-09-04 ```"
-                    },
-                    {
-                        name: "💻⠀Recuros",
-                        value: "<:nodejs:818254431844827158> `node.js v16.6.2`; `pm2 v5.1.0`; `discord.js v13`; `discord-welcome-card v3.7.5`, `@discordjs/voice v0.5.5`"
-                    },
-                    {
-                        name: "👰🏻⠀Developer",
-                        value: "`[@imkuroneko](https://github.com/imkuroneko)`"
-                    },
-                    {
-                        name: "⛓⠀Repositorio",
-                        value: "<:github:818254431363530753> https://github.com/imkuroneko/TheiBot"
-                    },
+                    { name: "🏷⠀Versión", value: "```<:tag:818254431308349461> 1.0.2 · 2021-09-24 ```" },
+                    { name: "💻⠀Recuros", value: "<:nodejs:818254431844827158> `node.js v16.6.2`; `pm2 v5.1.0`; `discord.js v13`; `discord-welcome-card v3.7.5`, `@discordjs/voice v0.5.5`" },
+                    { name: "👰🏻⠀Developer", value: "`[@imkuroneko](https://github.com/imkuroneko)`" },
+                    { name: "⛓⠀Repositorio", value: "<:github:818254431363530753> https://github.com/imkuroneko/TheiBot" },
                 ]
             }] });
             break;
@@ -147,8 +138,19 @@ client.on('messageCreate', msg => {
                 ]
             }] });
             break;
+        // ================================================================================================================================
+        case 'sendmsg':
+            msg.delete();
+            if(msg.author.id != config.discordBot.ownerId) { return false; }
+            sender.send({ embeds: [{ color: 0xeb5b8b, description: param }] });
+            break;
+        // ================================================================================================================================
+        case 'sendjson':
+            msg.delete();
+            if(msg.author.id != config.discordBot.ownerId) { return false; }
+            sender.send({ embeds: [ JSON.parse(param) ] });
+            break;
     }
-
 });
 
 
@@ -157,6 +159,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
     if(reaction.message.partial) { await reaction.message.fetch(); }
     if(reaction.partial) { await reaction.fetch(); }
     if((!reaction.message.guild) || user.bot) { return; }
+    if(reaction.message.guildId != config.discordGuild.guildId) { return; }
 
     message_id = reaction.message.id;
     role_name = reaction.emoji.name;
@@ -195,6 +198,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
     if(reaction.message.partial) { await reaction.message.fetch(); }
     if(reaction.partial) { await reaction.fetch(); }
     if((!reaction.message.guild) || user.bot) { return; }
+    if(reaction.message.guildId != config.discordGuild.guildId) { return; }
 
     message_id = reaction.message.id;
     role_name = reaction.emoji.name;
@@ -227,6 +231,8 @@ client.on('messageReactionRemove', async (reaction, user) => {
 
 /* == Monitor User Events =========================================================================== */
 client.on('guildMemberAdd', async (member) => {
+    if(member.guild.id != config.discordGuild.guildId) { return; }
+
     var user     = member.user.tag;
     var userId   = member.user.id;
     var username = member.user.username;
@@ -234,6 +240,7 @@ client.on('guildMemberAdd', async (member) => {
 
     const sender_welcome = client.channels.cache.find(channel => channel.id == config.discordGuild.welcomeChannel);
 
+    /*
     welcome_card = await drawCard({
         blur: true,
         title: 'Bienvenido!',
@@ -248,8 +255,8 @@ client.on('guildMemberAdd', async (member) => {
     buffer_image = new MessageAttachment(welcome_card, 'welcome.png');
 
     sender_welcome.send({ files: [{ attachment: welcome_card }] });
+    */
 
-/*
     sender_welcome.send({ embeds: [{
         color: config.embeds.morado,
         title: 'Bienvenido '+username+' al servidor 👋🏻',
@@ -262,7 +269,6 @@ client.on('guildMemberAdd', async (member) => {
         ],
         footer: config.embeds.footer
     }] });
-*/
 
 
     const sender_log = client.channels.cache.find(channel => channel.id == config.channelsLogs.in_out);
@@ -276,6 +282,8 @@ client.on('guildMemberAdd', async (member) => {
 });
 
 client.on('guildMemberRemove', (member) => {
+    if(member.guild.id != config.discordGuild.guildId) { return; }
+
     var user   = member.user.tag;
     var userId = member.user.id;
     var avatar = member.user.displayAvatarURL();
@@ -293,6 +301,8 @@ client.on('guildMemberRemove', (member) => {
 
 /* == Monitor User Sanction ========================================================================= */
 client.on('guildBanAdd', (guild) => {
+    if(guild.guild.id != config.discordGuild.guildId) { return; }
+
     var user   = guild.user.tag;
     var userId = guild.user.id;
     var avatar = guild.user.displayAvatarURL();
@@ -308,6 +318,8 @@ client.on('guildBanAdd', (guild) => {
 });
 
 client.on('guildBanRemove', (guild) => {
+    if(guild.guild.id != config.discordGuild.guildId) { return; }
+
     var user   = guild.user.tag;
     var userId = guild.user.id;
     var avatar = guild.user.displayAvatarURL();
@@ -325,6 +337,8 @@ client.on('guildBanRemove', (guild) => {
 
 /* == Monitor Role Events =========================================================================== */
 client.on('roleCreate', (role) => {
+    if(role.guild.id != config.discordGuild.guildId) { return; }
+
     const sender_log = client.channels.cache.find(channel => channel.id == config.channelsLogs.server);
     sender_log.send({ embeds: [{
         color: config.embeds.verde,
@@ -335,6 +349,8 @@ client.on('roleCreate', (role) => {
 });
 
 client.on('roleDelete', (role) => {
+    if(role.guild.id != config.discordGuild.guildId) { return; }
+
     const sender_log = client.channels.cache.find(channel => channel.id == config.channelsLogs.server);
     sender_log.send({ embeds: [{
         color: config.embeds.rojo,
@@ -347,6 +363,8 @@ client.on('roleDelete', (role) => {
 
 /* == Monitor Channel Events ======================================================================== */
 client.on('channelCreate', (channel) => {
+    if(channel.guild.id != config.discordGuild.guildId) { return; }
+
     const sender_log = client.channels.cache.find(channel => channel.id == config.channelsLogs.server);
     sender_log.send({ embeds: [{
         color: config.embeds.verde,
@@ -357,6 +375,8 @@ client.on('channelCreate', (channel) => {
 });
 
 client.on('channelDelete', (channel) => {
+    if(channel.guild.id != config.discordGuild.guildId) { return; }
+
     const sender_log = client.channels.cache.find(channel => channel.id == config.channelsLogs.server);
     sender_log.send({ embeds: [{
         color: config.embeds.rojo,

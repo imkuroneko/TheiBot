@@ -4,6 +4,7 @@
         "token" : "",
         "welcomeBackgroundImg" : "https://media.discordapp.net/attachments/881637454640185406/881637578086953000/card.png",
         "welcomeTextColor" : "#f1f1f1",
+        "ownerId" : "",
         "commandPrefix" : ""
     },
 
