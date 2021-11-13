@@ -5,23 +5,28 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 
 ### 📚 Librerías Utilizadas
 ```
-discord.js v13 & @discordjs/voice
+· @discordjs/builders
+· @discordjs/rest
+· @discordjs/voice
+· axios
+· cpu-stat
+· discord-api-types
+· discord.js
 ```
 
-### 🧰 Utilidades Implementadas
-- Conectarse a un canal específico (Rich Presence).
-- Enviar mensajes en un canal público cuando un usuario se una al servidor.
-- Enviar mensajes de entrada/salida de usuarios al/del servidor en un canal privado.
-- Enviar mensajes de baneo/desbaneos de usuarios en un canal privado.
-- Enviar mensajes de creación/eliminación de roles en un canal privado.
-- Otorgar roles a los usuarios (según reacción a mensajes específicos en canal específico).
-
+### 🧰 Utilidades Ya Implementadas
+- Comandos custom : tanto con `!` como con `/`
+- Conectarse a un canal específico (just as decorative).
+- Enviar mensajes de bienvenidas.
+- Enviar mensajes como log de entrada/salida de usuarios.
+- Otorgar roles a los usuarios según reacción con mensaje.
+- Comando para limpiar chat (solo para owner del bot)
 
 ### 🧰 Utilidades Por implementar
-- Sistema de comandos propios
-- Reproducción de músicas (tomar de Tomorrowland Radio)
-- Sistema de votaciones (preferentemente sin BD)
-- Mejorar mensajes de auditoría en general
+- Comando para sugerencias
+- Sistema de baneo
+- Agregar mas auditorias (kick/ban/edición del discord)
+- Sistema de economía interna
 
 -----
 
@@ -33,7 +38,7 @@ discord.js v13 & @discordjs/voice
 
 <p align="center">
   <a href="https://kuroneko.im" target="_blank">
-    <img src="https://kuroneko.im/assets/github_logo.png">
+    <img src="https://kuroneko.im/assets/img/favicon.png" width="120">
   </a>
 </p>
 
