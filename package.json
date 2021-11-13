@@ -1,26 +1,36 @@
 {
-	"name": "thei_bot",
-	"version": "1.0.0",
-	"description": "Pequeño bot utilitario para discord",
-	"main": "bot.js",
-	"scripts": {
-		"start": "node ./bot.js",
-		"build": "npm i && npm run clean && npm run dll && npm run package"
-	},
-	"keywords": [
-		"discord",
-		"bot",
-		"richpresence",
-		"discord.js"
-	],
-	"author": "KuroNeko",
-	"license": "GPL-3.0",
-	"homepage": "https://github.com/imkuroneko/TheiBot",
-	"dependencies": {
-		"@discordjs/voice": "^0.5.5",
-		"discord-welcome-card": "^3.7.5",
-		"discord.js": "^13.0.0",
-		"libsodium-wrappers": "^0.7.9",
-		"pino": "^7.0.0-rc.6"
-	}
+  "name": "theibot",
+  "version": "2.0.0",
+  "description": "Custom Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imkuroneko/theibot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "nodejs",
+    "discord.js"
+  ],
+  "author": "KuroNeko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imkuroneko/theibot/issues"
+  },
+  "homepage": "https://github.com/imkuroneko/theibot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.8.2",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/voice": "^0.7.2",
+    "axios": "^0.24.0",
+    "cpu-stat": "^2.0.1",
+    "discord-api-types": "^0.24.0",
+    "discord.js": "^13.3.1",
+    "fs": "^0.0.1-security",
+    "os": "^0.1.2"
+  }
 }

@@ -1,0 +1,12 @@
+{
+    "category_name" : {
+        "_params" : { "unique" : true, "__comment" : "false :: they can have a lot; true :: will remove them the other ones of this category" },
+        "roles" : [
+            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
+            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
+            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
+            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
+            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" }
+        ]
+    }
+}
