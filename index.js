@@ -1,4 +1,5 @@
-// https://discord.com/api/oauth2/authorize?client_id=815807932653633547&permissions=8&scope=applications.commands%20bot
+// https://discord.com/api/oauth2/authorize?client_id=____________&permissions=8&scope=applications.commands%20bot
+//                                                         ^ add botId here~
 
 // Load configuration files ================================================================================================
 const { clientId, token, guildId } = require('./config/bot.json');
