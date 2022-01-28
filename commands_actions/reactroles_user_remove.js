@@ -1,16 +1,6 @@
 const roles = require('../config/self_roles.json');
 const channels = require('../config/channels.json');
 
-const { Client, Intents } = require('discord.js');
-const fg = Intents.FLAGS;
-const client = new Client({
-    partials: [ 'MESSAGE', 'REACTION', 'CHANNEL' ],
-    intents:  [
-        fg.GUILDS, fg.GUILD_INTEGRATIONS, fg.GUILD_WEBHOOKS, fg.GUILD_VOICE_STATES,
-        fg.GUILD_MEMBERS, fg.GUILD_MESSAGES, fg.GUILD_MESSAGE_REACTIONS
-    ]
-});
-
 module.exports = {
     name: 'messageReactionRemove',
     async execute(reaction, user) {
