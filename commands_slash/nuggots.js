@@ -5,6 +5,6 @@ module.exports = {
 		.setName('nuggots')
 		.setDescription('Just... nuggots'),
 	async execute(interaction) {
-		return interaction.reply('🍗🍗🍗');
+		return interaction.reply('<:nuggots:864676232737718292> **Nuggots for the confederation!** <a:bongoThei:919759634087149608>');
 	}
 };
