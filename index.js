@@ -47,12 +47,8 @@ client.once('ready', () => {
         });
     }
 
-    console.log('Bot Iniciado exitosamente');
+    console.log('[Init] Bot operativo!');
 });
-
-// Test ====================================================================================================================
-const sender_welcome = client.channels.cache.find(channel => channel.id == channels.welcomeChannel);
-const sender_log = client.channels.cache.find(channel => channel.id == channels.log_JoinLeft);
 
 // Load slash commands when join to server =================================================================================
 client.on('guildCreate', async (guild) => {
@@ -100,6 +96,7 @@ const customCommands = fs.readdirSync('./commands_custom').filter(file => file.e
 for(const custCommFile of customCommands) {
     const event = require(`./commands_custom/${custCommFile}`);
     client.on(event.name, (...args) => event.execute(...args));
+    console.log('[Init] Recurso cargado: '+custCommFile);
 }
 
 // Handle :: Reactions / Guild Events (Create/Modif/Delete Channels) =======================================================
@@ -107,61 +104,8 @@ const actionsFiles = fs.readdirSync('./commands_actions').filter(file => file.en
 for(const actionFile of actionsFiles) {
     const event = require(`./commands_actions/${actionFile}`);
     client.on(event.name, (...args) => event.execute(...args));
+    console.log('[Init] Recurso cargado: '+actionFile);
 }
-
-// Temporal :: Log User Events (Join/Leave) ================================================================================
-client.on('guildMemberAdd', (member) => {
-    if(member.guild.id != guildId) { return; }
-
-    var user     = member.user.tag;
-    var userId   = member.user.id;
-    var username = member.user.username;
-    var avatar   = member.user.displayAvatarURL();
-
-    if(channels.welcomeChannel.length > 0) {
-        const sender_welcome = client.channels.cache.get(channels.welcomeChannel);
-        sender_welcome.send({ embeds: [{
-            color: 0xcc3366,
-            title: 'Bienvenido '+username+' al servidor 👋🏻',
-            description: "Esperamos que disfrutes tu estadía en el servidor.",
-            fields: [
-                { name: '• Las reglas de mi comunidad', value: '<#751891992178327573>' },
-                { name: '• Roles Chidoris y para alertas', value: '<#580615018261774346>' },
-                { name: '• Sobre Mí y mis redes sociales', value: '<#637941772063866890>' }
-            ],
-            footer: { text: '🦄 Thei Bot / Experimental Project by KuroNeko' }
-        }] });
-    }
-
-    if(channels.log_JoinLeft.length > 0) {
-        const sender_log = client.channels.cache.get(channels.log_JoinLeft);
-        sender_log.send({ embeds: [{
-            color: 0x89db4f,
-            title: `👋🏻 Un usuario se acaba de unir al servidor`,
-            fields: [ { name: 'Usuario', value: user }, { name: 'User ID', value: userId } ],
-            footer: { text: '🦄 Thei Bot / Experimental Project by KuroNeko' }
-        }] });
-    }
-});
-
-client.on('guildMemberRemove', (member) => {
-    if(member.guild.id != guildId) { return; }
-
-    if(channels.log_JoinLeft.length > 0) {
-        var user   = member.user.tag;
-        var userId = member.user.id;
-        var avatar = member.user.displayAvatarURL();
-
-        const sender_log = client.channels.cache.get(channels.log_JoinLeft);
-        sender_log.send({ embeds: [{
-            color: 0xe35d5d,
-            title: `👋🏻 Un usuario se acaba de ir del servidor`,
-            fields: [ { name: 'Usuario', value: user }, { name: 'User ID', value: userId } ],
-            // thumbnail: { url: avatar },
-            footer: { text: '🦄 Thei Bot / Experimental Project by KuroNeko' }
-        }] });
-    }
-});
 
 // Define token a init bot =================================================================================================
 client.login(token);
