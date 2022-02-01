@@ -1,20 +1,14 @@
 const { token } = require('../config/bot.json');
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Client, Intents, MessageEmbed } = require("discord.js");
+const { Client, Intents } = require("discord.js");
 const Discord = require("discord.js");
 const cpuStat = require("cpu-stat");
 const os = require("os");
 
-const fg = Intents.FLAGS;
 const client2 = new Client({
-    partials: [ 'MESSAGE', 'REACTION', 'CHANNEL' ],
-    intents: [
-        fg.GUILDS, fg.GUILD_INTEGRATIONS, fg.GUILD_WEBHOOKS,
-        fg.GUILD_PRESENCES, fg.GUILD_VOICE_STATES,
-        fg.GUILD_INVITES, fg.GUILD_MEMBERS, fg.GUILD_BANS,
-        fg.GUILD_MESSAGES, fg.GUILD_MESSAGE_REACTIONS, fg.GUILD_MESSAGE_TYPING
-    ]
+    partials: [ 'MESSAGE' ],
+    intents: [ Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_INTEGRATIONS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_TYPING ]
 });
 client2.login(token);
 client2.once('ready', () => {
@@ -30,32 +24,36 @@ module.exports = {
 		cpuStat.usagePercent(function (e, percent, seconds) {
 			try {
 				if(e) { return console.log(e.stack); }
-				const botinfo = new MessageEmbed()
-					.setTitle("💻 Información del bot y estado del servidor")
-					.setColor(0x62d1f0)
-					.addField("🤖 NodeJS", "```"+process.version+"```")
-					.addField("👾 Discord.JS", "```v"+Discord.version+"```")
-					.addField("🏸 API Latency", "```"+client2.ws.ping+"ms```")
-					.addField("⌚️ Uptime ", "```"+duration(client2.uptime).map(i=>i).join(", ")+"```")
-					.addField("🧮 Consumo Memoria", "```"+(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```")
-					.addField("🤖 Consumo CPU", "```"+percent.toFixed(2)+"%```")
-					.addField("💻 Sistema Operativo", "```"+os.platform()+" ("+os.arch()+")```")
-					.setFooter("by KuroNeko", "https://cdn.discordapp.com/emojis/741619183514812425.png");
-				interaction.reply({ embeds: [botinfo] });
+                return interaction.reply({ embeds: [{
+                    color: 0x62d1f0,
+                    title: '💻 Información del bot y estado del servidor',
+                    fields: [
+                        { name: '🤖 NodeJS', value: "```"+process.version+"```" },
+                        { name: '👾 Discord.JS', value: "```v"+Discord.version+"```" },
+                        { name: '🏸 API Latency', value: "```"+client2.ws.ping+"ms```" },
+                        { name: '⌚️ Uptime', value: "```"+duration(client2.uptime).map(i=>i).join(", ")+"```" },
+                        { name: '🧮 Consumo Memoria', value: "```"+(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```" },
+                        { name: '🤖 Consumo CPU', value: "```"+percent.toFixed(2)+"%```" },
+                        { name: '💻 Sistema Operativo', value: "```"+os.platform()+" ("+os.arch()+")```" },
+                    ],
+                    thumbnail: { url: 'https://cdn.discordapp.com/emojis/741619183514812425.png', text: 'by KuroNeko' }
+                }] });
 			} catch (e) {
 				console.log(e);
-				const botinfo = new MessageEmbed()
-					.setTitle("💻 Información del bot y estado del servidor")
-					.setColor(0x62d1f0)
-					.addField("🤖 NodeJS", "```"+process.version+"```")
-					.addField("👾 Discord.JS", "```v"+Discord.version+"```")
-					.addField("🏸 API Latency", "```"+client2.ws.ping+"ms```")
-					.addField("⌚️ Uptime ", "```"+duration(client2.uptime).map(i=>i).join(", ")+"```")
-					.addField("🧮 Consumo Memoria", "```"+(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```")
-					.addField("🤖 Consumo CPU", "```"+percent.toFixed(2)+"%```")
-					.addField("💻 Sistema Operativo", "```"+os.platform()+" ("+os.arch()+")```")
-					.setFooter("by KuroNeko", "https://cdn.discordapp.com/emojis/741619183514812425.png");
-				interaction.reply({ embeds: [botinfo] });
+                return interaction.reply({ embeds: [{
+                    color: 0x62d1f0,
+                    title: '💻 Información del bot y estado del servidor',
+                    fields: [
+                        { name: '🤖 NodeJS', value: "```"+process.version+"```" },
+                        { name: '👾 Discord.JS', value: "```v"+Discord.version+"```" },
+                        { name: '🏸 API Latency', value: "```"+client2.ws.ping+"ms```" },
+                        { name: '⌚️ Uptime', value: "```"+duration(client2.uptime).map(i=>i).join(", ")+"```" },
+                        { name: '🧮 Consumo Memoria', value: "```"+(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```" },
+                        { name: '🤖 Consumo CPU', value: "```"+percent.toFixed(2)+"%```" },
+                        { name: '💻 Sistema Operativo', value: "```"+os.platform()+" ("+os.arch()+")```" },
+                    ],
+                    thumbnail: { url: 'https://cdn.discordapp.com/emojis/741619183514812425.png', text: 'by KuroNeko' }
+                }] });
 			}
 		});
 
