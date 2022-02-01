@@ -20,13 +20,9 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 - Enviar mensajes de bienvenidas.
 - Enviar mensajes como log de entrada/salida de usuarios.
 - Otorgar roles a los usuarios según reacción con mensaje.
-- Comando para limpiar chat (solo para owner del bot)
 
 ### 🧰 Utilidades Por implementar
-- Comando para sugerencias
-- Sistema de baneo
-- Agregar mas auditorias (kick/ban/edición del discord)
-- Sistema de economía interna
+[Ideas por implementar disponible aquí 🦄](https://github.com/imkuroneko/TheiBot/projects/1)
 
 -----
 
