@@ -33,7 +33,7 @@ for(const slashFile of slashCommandFiles) {
 
 // When bot is up ==========================================================================================================
 client.once('ready', () => {
-    client.user.setActivity('nuggots! 🍗', {type: 'WATCHING'});
+    client.user.setActivity('Hoomans en Discord™', {type: 'WATCHING'});
 
     if(channels.presenceVoice.length > 0) {
         const { joinVoiceChannel } = require('@discordjs/voice');
