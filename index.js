@@ -2,7 +2,7 @@
 //                                                         ^ add botId here~
 
 // Load configuration files ================================================================================================
-const { clientId, token, guildId } = require('./config/bot.json');
+const { clientId, token } = require('./config/bot.json');
 const channels = require('./config/channels.json');
 
 // Load required resources =================================================================================================
