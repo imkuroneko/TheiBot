@@ -2,13 +2,27 @@ const roles = require('../config/self_roles.json');
 const channels = require('../config/channels.json');
 
 module.exports = {
-    name: 'messageReactionAdd',
-    async execute(reaction, user) {
-        if(reaction.message.partial) { await reaction.message.fetch(); }
-        if(reaction.partial) { await reaction.fetch(); }
-        if((!reaction.message.guild) || user.bot) { return; }
-        if(reaction.message.channelId != channels.takeYourRole) { return; }
+    name: 'interactionCreate',
+    async execute(interaction) {
 
+        // 938245623495393300
+
+        if(!interaction.isCommand()) return;
+
+        if(interaction.commandName === 'ping') {
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('primary')
+                        .setLabel('Primary')
+                        .setStyle('PRIMARY'),
+                );
+    
+            await interaction.reply({ content: 'Pong!', components: [row] });
+        }
+
+
+        /*
         // Params
         const react_id = reaction.emoji.id;
         const user_g   = reaction.message.guild.members.cache.get(user.id);
@@ -26,5 +40,6 @@ module.exports = {
                 }
             }
         }
+        */
     }
 };

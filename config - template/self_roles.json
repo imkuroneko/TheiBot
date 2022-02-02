@@ -1,12 +1,21 @@
 {
-    "category_name" : {
-        "_params" : { "unique" : true, "__comment" : "false :: they can have a lot; true :: will remove them the other ones of this category" },
-        "roles" : [
-            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
-            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
-            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
-            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" },
-            { "emoji_id" : "the_emoji_id", "role_id" : "the_role_id", "__comment" : "here you can put the name or something else" }
-        ]
+    "alertas" : {
+        "sorteos" : "665208554726359064",
+        "streams" : "606674875557478416"
+    },
+
+    "hobbies" : {
+        "dev" : "461330378691444767",
+        "artist" : "488012857909182464",
+        "gamer" : "467854409284452362",
+        "streamer" : "528826642156748802"
+    },
+
+    "colores" : {
+        "c_93b97d" : "908324747098595368",
+        "c_66c1bc" : "908324738252820520",
+        "c_ebda79" : "908324743814467595",
+        "c_7982ef" : "908324749615181824",
+        "c_ef7993" : "908324733706207303"
     }
 }
