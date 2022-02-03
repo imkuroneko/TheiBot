@@ -8,7 +8,7 @@ module.exports = {
         if(!interaction.isButton()) { return; }
 
         const role_id = interaction.customId;
-        const user   = interaction.guild.members.cache.get(interaction.user.id);
+        const user = interaction.guild.members.cache.get(interaction.user.id);
 
         // Roles de Alertas
         for(let i = 0; i < roles.alertas.length; i++) {
@@ -45,7 +45,7 @@ module.exports = {
         for(let i = 0; i < roles.colores.length; i++) {
             if(role_id == roles.colores[i].id) {
                 color_role = true;
-                r_name = roles.colores[i].name.replace('c_', '#');
+                r_name = roles.colores[i].name;
                 color_id_give = roles.colores[i].id;
             }
         }
