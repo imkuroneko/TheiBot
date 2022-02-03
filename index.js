@@ -99,6 +99,14 @@ for(const custCommFile of customCommands) {
     console.log('[Init] Recurso cargado: '+custCommFile);
 }
 
+// Handle :: Buttons Actions ===============================================================================================
+const buttonsFiles = fs.readdirSync('./buttons_actions').filter(file => file.endsWith('.js'));
+for(const buttonFile of buttonsFiles) {
+    const event = require(`./buttons_actions/${buttonFile}`);
+    client.on(event.name, (...args) => event.execute(...args));
+    console.log('[Init] Recurso cargado: '+buttonFile);
+}
+
 // Handle :: Reactions / Guild Events (Create/Modif/Delete Channels) =======================================================
 const actionsFiles = fs.readdirSync('./commands_actions').filter(file => file.endsWith('.js'));
 for(const actionFile of actionsFiles) {
