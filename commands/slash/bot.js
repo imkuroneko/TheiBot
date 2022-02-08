@@ -1,4 +1,4 @@
-const { token } = require('../config/bot.json');
+const { token } = require('../../config/bot.json');
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Client, Intents } = require("discord.js");

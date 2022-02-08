@@ -1,8 +1,12 @@
 const channels = require('../config/channels.json');
+const config = require('../config/bot.json');
 
 module.exports = {
     name: 'guildMemberRemove',
     async execute(client, user) {
+
+        if(client.user.id == config.clientId) { return; }
+
         var user     = client.user.tag;
         var userId   = client.user.id;
         var username = client.user.username;

@@ -1,8 +1,12 @@
 const channels = require('../config/channels.json');
+const config = require('../config/bot.json');
 
 module.exports = {
     name: 'guildMemberAdd',
     async execute(client, user) {
+
+        if(client.user.id == config.clientId) { return; }
+
         var user     = client.user.tag;
         var userId   = client.user.id;
         var username = client.user.username;
@@ -16,7 +20,7 @@ module.exports = {
                 description: "Esperamos que disfrutes tu estadía en el servidor.",
                 fields: [
                     { name: '• Las reglas de mi comunidad', value: '<#751891992178327573>' },
-                    // { name: '• Roles Chidoris y para alertas', value: '<#580615018261774346>' },
+                    { name: '• Roles Chidoris y para alertas', value: '<#938245623495393300>' },
                     { name: '• Sobre Mí y mis redes sociales', value: '<#637941772063866890>' }
                 ],
                 footer: { text: '🦄 Thei Bot / Experimental Project by KuroNeko' }

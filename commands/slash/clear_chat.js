@@ -1,4 +1,4 @@
-const config  = require('../config/bot.json');
+const config  = require('../../config/bot.json');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {

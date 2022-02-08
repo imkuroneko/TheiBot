@@ -1,7 +1,7 @@
 const { MessageActionRow, MessageButton } = require('discord.js');
-const config = require('../config/bot.json');
-const roles = require('../config/self_roles.json');
-const channels = require('../config/channels.json');
+const config = require('../../config/bot.json');
+const roles = require('../../config/self_roles.json');
+const channels = require('../../config/channels.json');
 
 module.exports = {
     name: 'messageCreate',
