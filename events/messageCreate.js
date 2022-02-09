@@ -1,18 +1,46 @@
-module.exports = (client, message) => {
-    if(message.author.bot) { return; }
+const config = require('../config/bot.json');
 
-    if(message.content.indexOf(client.config.prefix) !== 0) return;
+module.exports = {
+    name: 'messageCreate',
+    async execute(message) {
 
-    // Our standard argument/command name definition.
-    const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+        // 🚨 Ignore bots
+        if(message.author.bot) { return; }
 
-    // Grab the command data from the client.commands Enmap
-    const cmd = client.commands.get(command);
+        // 🦄 Legacy content from v0.2 =======================================================================
+        if(!message.content.indexOf(config.prefix) <= 0) {
+            nuggots_ = ['nugget', 'nuggot', 'nyuggot', 'nuggat'];
+            for(let index = 0; index < nuggots_.length; index++) {
+                if(message.content.toLowerCase().includes(nuggots_[index])) {
+                    message.reply("Gimme nuggots! <:nuggots:864676232737718292>");
+                }
+            }
 
-    // If that command doesn't exist, silently exit and do nothing
-    if(!cmd) return;
+            thei_ = ['thei', 'theei', 'theii'];
+            for(let index = 0; index < thei_.length; index++) {
+                if(message.content.toLowerCase().includes(thei_[index])) {
+                    message.reply("How you dare you hooman to summon me! <:theiFaka:925597678086283294>");
+                }
+            }
+        }
+        // ==================================================================================================
 
-    // Run the command
-    cmd.run(client, message, args);
-};
+        // 🚨 Ignore when not prefix
+        if(message.content.indexOf(config.prefix) !== 0) {
+            return;
+        }
+
+
+        // 🥞 Split content
+        const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+        const command = args.shift().toLowerCase();
+
+        // 🔍 Search command
+        const cmd = message.client.commandsPrefix.get(command);
+
+        if(!cmd) { return; }
+
+        cmd.run(message.client, message, args);
+
+    }
+}

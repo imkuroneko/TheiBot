@@ -22,20 +22,23 @@ const client = new Client({
 });
 
 // Load slash commands =====================================================================================================
-client.commands = new Collection();
+client.commandsSlash = new Collection();
 const slashCommandFiles = fs.readdirSync('./commands/slash').filter(file => file.endsWith('.js'));
 for(const slashFile of slashCommandFiles) {
-	const command = require(`./commands/slash/${slashFile}`);
-	client.commands.set(command.data.name, command);
+    var commandName = slashFile.split(".")[0];
+	var command = require(`./commands/slash/${slashFile}`);
+	client.commandsSlash.set(command.data.name, command);
+    console.log(`[Init] Recurso cargado: ${commandName}`);
 }
 
 // Custom Commands (with prefix) ===========================================================================================
-const commands = fs.readdirSync('./commands/custom').filter(file => file.endsWith('.js'));
-for(const command of commands) {
-    const commandName = command.split('.')[0];
-    const event = require(`./commands/custom/${command}`);
-    client.on(event.name, (...args) => event.execute(...args));
-    console.log('[Init] Recurso cargado: '+commandName);
+client.commandsPrefix = new Collection();
+const prefixCommandFiles = fs.readdirSync('./commands/prefix').filter(file => file.endsWith(".js"));
+for(const prefixFile of prefixCommandFiles) {
+    var commandName = prefixFile.split(".")[0];
+    var command = require(`./commands/prefix/${prefixFile}`);
+    client.commandsPrefix.set(commandName, command);
+    console.log(`[Init] Recurso cargado: ${commandName}`);
 }
 
 // Handle :: Buttons Actions ===============================================================================================
@@ -44,7 +47,7 @@ for(const button of buttons) {
     const buttonName = button.split('.')[0];
     const event = require(`./buttons/${button}`);
     client.on(event.name, (...args) => event.execute(...args));
-    console.log('[Init] Recurso cargado: '+buttonName);
+    console.log(`[Init] Recurso cargado: ${buttonName}`);
 }
 
 // Handle :: Events ========================================================================================================
@@ -53,7 +56,7 @@ for(const file of events) {
     const eventName = file.split('.')[0];
     const event = require(`./events/${file}`);
     client.on(event.name, (...args) => event.execute(...args));
-    console.log('[Init] Evento cargado: '+eventName);
+    console.log(`[Init] Evento cargado:  ${eventName}`);
 }
 
 // Define token a init bot =================================================================================================

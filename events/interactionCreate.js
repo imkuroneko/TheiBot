@@ -4,7 +4,7 @@ module.exports = {
 
         if(!interaction.isCommand()) { return; }
 
-        const command = interaction.client.commands.get(interaction.commandName);
+        const command = interaction.client.commandsSlash.get(interaction.commandName);
     
         if(!command) { return; }
     
