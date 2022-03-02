@@ -26,8 +26,8 @@ client.commandsSlash = new Collection();
 const slashCommandFiles = fs.readdirSync('./commands/slash').filter(file => file.endsWith('.js'));
 for(const slashFile of slashCommandFiles) {
     var commandName = slashFile.split(".")[0];
-	var command = require(`./commands/slash/${slashFile}`);
-	client.commandsSlash.set(command.data.name, command);
+    var command = require(`./commands/slash/${slashFile}`);
+    client.commandsSlash.set(command.data.name, command);
     console.log(`[Init] Recurso cargado: ${commandName}`);
 }
 
