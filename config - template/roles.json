@@ -1,4 +1,6 @@
 {
+    "roleWhenJoin" : "923181269939015682",
+
     "stackables" : {
         "alertas" : [
             { "name" : "🎫⠀RaffleAlert", "id" : "665208554726359064" },

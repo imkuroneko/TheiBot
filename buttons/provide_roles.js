@@ -1,5 +1,4 @@
-const roles = require('../config/self_roles.json');
-const channels = require('../config/channels.json');
+const roles = require('../config/roles.json');
 
 module.exports = {
     name: 'interactionCreate',
