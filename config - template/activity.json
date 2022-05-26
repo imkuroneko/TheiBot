@@ -1,0 +1,9 @@
+[
+    { "type": "WATCHING", "message": "Hoomans en Discord™" },
+    { "type": "WATCHING", "message": "Nuggots on KFC 🍗" },
+    { "type": "WATCHING",  "message": "Gray's Anatomy" },
+
+    { "type": "PLAYING",  "message": "Dead By Daylight" },
+    { "type": "PLAYING",  "message": "Fortnite" },
+    { "type": "PLAYING",  "message": "Counter Strike: Unicorns Offensive Squad" }
+]
