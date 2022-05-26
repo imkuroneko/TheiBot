@@ -4,21 +4,21 @@ const roles = require('../config/roles.json');
 
 module.exports = {
     name: 'guildMemberAdd',
-    async execute(client, user) {
+    async execute(member) {
 
-        if(client.user.id == config.clientId) { return; }
+        if(member.user.id == config.clientId) { return; }
 
-        const userTag  = client.user.tag;
-        const userId   = client.user.id;
-        const username = client.user.username;
-        const avatar   = client.user.displayAvatarURL();
+        const userTag  = member.user.tag;
+        const userId   = member.user.id;
+        const username = member.user.username;
+        const avatar   = member.user.displayAvatarURL();
 
         if(roles.roleWhenJoin.length > 0 ) {
-            client.user.roles.add(roles.roleWhenJoin);
+            member.roles.add(roles.roleWhenJoin);
         }
 
         if(channels.welcomeChannel.length > 0) {
-            const sender_welcome = client.guild.channels.cache.get(channels.welcomeChannel);
+            const sender_welcome = member.guild.channels.cache.get(channels.welcomeChannel);
             sender_welcome.send({ embeds: [{
                 color: 0xcc3366,
                 title: `Bienvenido <@${userId}> al servidor 👋🏻 Esperamos disfrutes tu estadía en el servidor.`,
@@ -27,7 +27,7 @@ module.exports = {
         }
 
         if(channels.log_JoinLeft.length > 0) {
-            const sender_log = client.guild.channels.cache.get(channels.log_JoinLeft);
+            const sender_log = member.guild.channels.cache.get(channels.log_JoinLeft);
             sender_log.send({ embeds: [{
                 color: 0x89db4f,
                 title: `👋🏻 Un usuario se acaba de unir al servidor`,
