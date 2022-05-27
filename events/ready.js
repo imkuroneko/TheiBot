@@ -1,10 +1,6 @@
 const channels = require('../config/channels.json');
 const activity = require('../config/activity.json');
 
-const fs = require('fs');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-
 module.exports = {
     name: 'ready',
     execute(guild) {
@@ -19,14 +15,26 @@ module.exports = {
         }
 
         if(channels.presenceVoice.length > 0) {
-            const { joinVoiceChannel } = require('@discordjs/voice');
+            const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
             const voiceChannel = guild.channels.cache.get(channels.presenceVoice);
 
-            joinVoiceChannel({
+            const conn = joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: voiceChannel.guild.id,
                 adapterCreator: voiceChannel.guild.voiceAdapterCreator,
                 selfDeaf: false
+            });
+
+            conn.on(VoiceConnectionStatus.Disconnected, async (oldState, newState) => {
+                try {
+                    await Promise.race([
+                        entersState(conn, VoiceConnectionStatus.Signalling, 5_000),
+                        entersState(conn, VoiceConnectionStatus.Connecting, 5_000),
+                    ]);
+                } catch(error) {
+                    // Seems to be a real disconnect which SHOULDN'T be recovered from
+                    connection.destroy();
+                }
             });
         }
 
