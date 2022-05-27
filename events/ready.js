@@ -18,24 +18,20 @@ module.exports = {
             const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
             const voiceChannel = guild.channels.cache.get(channels.presenceVoice);
 
-            const conn = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: voiceChannel.guild.id,
-                adapterCreator: voiceChannel.guild.voiceAdapterCreator,
-                selfDeaf: false
-            });
+            var conn = connectToVoice(voiceChannel);
 
             conn.on(VoiceConnectionStatus.Disconnected, async (oldState, newState) => {
-                try {
-                    await Promise.race([
-                        entersState(conn, VoiceConnectionStatus.Signalling, 5_000),
-                        entersState(conn, VoiceConnectionStatus.Connecting, 5_000),
-                    ]);
-                } catch(error) {
-                    // Seems to be a real disconnect which SHOULDN'T be recovered from
-                    connection.destroy();
-                }
+                conn = connectToVoice(voiceChannel);
             });
+
+            function connectToVoice(channel) {
+                return joinVoiceChannel({
+                    channelId: channel.id,
+                    guildId: channel.guild.id,
+                    adapterCreator: channel.guild.voiceAdapterCreator,
+                    selfDeaf: false
+                });
+            }
         }
 
         console.log('[Init] ✨ Bot operativo!');
