@@ -26,15 +26,14 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 
 -----
 
-![GitHub repo size](https://img.shields.io/github/repo-size/imkuroneko/TheiBot?style=flat)
-![GitHub top language](https://img.shields.io/github/languages/top/imkuroneko/TheiBot?style=flat)
-![GitHub last commit](https://img.shields.io/github/last-commit/imkuroneko/TheiBot?color=pink&style=flat)
-
------
+<p align="center">
+  <img src="https://img.shields.io/github/repo-size/imkuroneko/TheiBot?style=flat"/> &nbsp;
+  <img src="https://img.shields.io/github/languages/top/imkuroneko/TheiBot?style=flat"/> &nbsp;
+  <img src="https://img.shields.io/github/last-commit/imkuroneko/TheiBot?color=pink&style=flat"/>
+</p>
 
 <p align="center">
   <a href="https://kuroneko.im" target="_blank">
-    <img src="https://kuroneko.im/assets/img/favicon.png" width="120">
+    <img src="https://kuroneko.im/web_assets/favicon.png" width="120">
   </a>
 </p>
-
