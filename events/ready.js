@@ -34,6 +34,6 @@ module.exports = {
             }
         }
 
-        console.log('[Init] ✨ Bot operativo!');
+        console.log('[Init] Bot operativo!');
     }
 };
