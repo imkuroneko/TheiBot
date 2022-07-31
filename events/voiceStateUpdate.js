@@ -9,7 +9,6 @@ module.exports = {
             if(channels.presenceVoice.length > 0) {
                 const { joinVoiceChannel } = require('@discordjs/voice');
                 const voiceChannelReconn = newState.guild.channels.cache.get(channels.presenceVoice);
-            
                 joinVoiceChannel({
                     channelId: voiceChannelReconn.id,
                     guildId: voiceChannelReconn.guild.id,

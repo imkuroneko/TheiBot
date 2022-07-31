@@ -1,34 +1,52 @@
-// https://discord.com/api/oauth2/authorize?client_id=815807932653633547&permissions=8&scope=applications.commands%20bot
+// https://discord.com/api/oauth2/authorize?client_id=960889806932570153&permissions=8&scope=applications.commands%20bot
 //                                                         ^ add botId here~
 
 // Load configuration files ================================================================================================
-const { clientId, token } = require('./config/bot.json');
-const channels = require('./config/channels.json');
+const { token } = require('./config/bot.json');
 
 // Load required resources =================================================================================================
 const fs = require('fs');
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, Collection, SlashCommandBuilder } = require('discord.js');
 
 // Define client Intents ===================================================================================================
-const fg = Intents.FLAGS;
 const client = new Client({
-    partials: [ 'MESSAGE', 'REACTION', 'CHANNEL' ],
     intents: [
-        fg.GUILDS, fg.GUILD_INTEGRATIONS, fg.GUILD_WEBHOOKS,
-        fg.GUILD_PRESENCES, fg.GUILD_VOICE_STATES,
-        fg.GUILD_INVITES, fg.GUILD_MEMBERS, fg.GUILD_BANS,
-        fg.GUILD_MESSAGES, fg.GUILD_MESSAGE_REACTIONS, fg.GUILD_MESSAGE_TYPING
+        GatewayIntentBits.GuildBans,
+        // GatewayIntentBits.GuildEmojisAndStickers,
+        GatewayIntentBits.GuildIntegrations,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildMessageTyping,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildPresences,
+        // GatewayIntentBits.GuildScheduledEvents,
+        GatewayIntentBits.GuildVoiceStates,
+        // GatewayIntentBits.GuildWebhooks,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.MessageContent
+    ],
+    partials: [
+        Partials.Channel,
+        Partials.GuildMember,
+        Partials.GuildScheduledEvent,
+        Partials.Message,
+        Partials.Reaction,
+        Partials.ThreadMember,
+        Partials.User
     ]
 });
 
 // Load slash commands =====================================================================================================
 client.commandsSlash = new Collection();
+client.slashRegister = [];
 const slashCommandFiles = fs.readdirSync('./commands/slash').filter(file => file.endsWith('.js'));
 for(const slashFile of slashCommandFiles) {
     var commandName = slashFile.split(".")[0];
-    var command = require(`./commands/slash/${slashFile}`);
-    client.commandsSlash.set(command.data.name, command);
-    console.log(`[Init] Recurso cargado: ${commandName}`);
+	var command = require(`./commands/slash/${slashFile}`);
+
+    client.slashRegister.push(command.data.toJSON());
+	client.commandsSlash.set(command.data.name, command);
 }
 
 // Custom Commands (with prefix) ===========================================================================================
@@ -38,26 +56,23 @@ for(const prefixFile of prefixCommandFiles) {
     var commandName = prefixFile.split(".")[0];
     var command = require(`./commands/prefix/${prefixFile}`);
     client.commandsPrefix.set(commandName, command);
-    console.log(`[Init] Recurso cargado: ${commandName}`);
 }
 
 // Handle :: Buttons Actions ===============================================================================================
-const buttons = fs.readdirSync('./buttons').filter(file => file.endsWith('.js'));
+const buttons = fs.readdirSync('./actions/buttons').filter(file => file.endsWith('.js'));
 for(const button of buttons) {
-    const buttonName = button.split('.')[0];
-    const event = require(`./buttons/${button}`);
+    const event = require(`./actions/buttons/${button}`);
     client.on(event.name, (...args) => event.execute(...args));
-    console.log(`[Init] Recurso cargado: ${buttonName}`);
 }
 
 // Handle :: Events ========================================================================================================
 const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for(const file of events) {
-    const eventName = file.split('.')[0];
     const event = require(`./events/${file}`);
     client.on(event.name, (...args) => event.execute(...args));
-    console.log(`[Init] Evento cargado:  ${eventName}`);
 }
 
 // Define token a init bot =================================================================================================
-client.login(token);
+client.login(token).catch((error) => {
+    console.log(error.message);
+});

@@ -1,4 +1,4 @@
-const roles = require('../config/roles.json');
+const roles = require('../../config/roles.json');
 
 module.exports = {
     name: 'interactionCreate',
