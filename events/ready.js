@@ -1,5 +1,5 @@
 const channels = require('../config/channels.json');
-const activity = require('../config/activity.json');
+const activity = require('../data/activity.json');
 
 module.exports = {
     name: 'ready',
@@ -35,10 +35,10 @@ module.exports = {
                 }
             }   
         } catch(error) {
-            console.error('Event Ready ::'+error.message);
+            console.error('[error] event:ready |', error.message);
         }
 
-        console.log('[Init] ✨ Bot operativo!');
+        console.log('[init] Bot operativo!');
     }
 };
 

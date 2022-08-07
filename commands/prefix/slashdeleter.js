@@ -35,6 +35,6 @@ exports.run = (client, message, args) => {
         return message.reply('🦄 Todos los comandos slash fueron eliminados (global y del guild)');
 
     } catch (error) {
-        console.error('prfx cmd slash deleter ::'+error.message);
+        console.error('[error] cmdPrefix:slashdeleter |',error.message);
     }
 }

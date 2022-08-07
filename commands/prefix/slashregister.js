@@ -18,6 +18,6 @@ exports.run = (client, message, args) => {
             console.error('prfx cmd slashregister ::'+error.message);
         });
     } catch (error) {
-        console.error('prfx cmd slashregister ::'+error.message);
+        console.error('[error] cmdPrefix:slashregister |',error.message);
     }
 }

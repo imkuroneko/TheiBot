@@ -49,7 +49,7 @@ for(const slashFile of slashCommandFiles) {
 	client.commandsSlash.set(command.data.name, command);
 }
 
-// Custom Commands (with prefix) ===========================================================================================
+// Admin Commands (with prefix) ============================================================================================
 client.commandsPrefix = new Collection();
 const prefixCommandFiles = fs.readdirSync('./commands/prefix').filter(file => file.endsWith(".js"));
 for(const prefixFile of prefixCommandFiles) {
@@ -59,10 +59,12 @@ for(const prefixFile of prefixCommandFiles) {
 }
 
 // Handle :: Buttons Actions ===============================================================================================
-const buttons = fs.readdirSync('./actions/buttons').filter(file => file.endsWith('.js'));
-for(const button of buttons) {
-    const event = require(`./actions/buttons/${button}`);
-    client.on(event.name, (...args) => event.execute(...args));
+client.interactions = new Collection();
+const interactionsFiles = fs.readdirSync('./interactions').filter(file => file.endsWith('.js'));
+for(const interactionFile of interactionsFiles) {
+    var commandName = interactionFile.split(".")[0];
+    var command = require(`./interactions/${interactionFile}`);
+    client.interactions.set(commandName, command);
 }
 
 // Handle :: Events ========================================================================================================
@@ -74,5 +76,14 @@ for(const file of events) {
 
 // Define token a init bot =================================================================================================
 client.login(token).catch((error) => {
-    console.log(error.message);
+    console.error('[error] client:token |', error.message);
+});
+
+// Handle Error ============================================================================================================
+process.on('unhandledRejection', (error) => {
+    console.error('[error] process:unhandledError |', error);
+});
+
+client.on('shardError', (error) => {
+    console.error('[error] process:shardError |', error);
 });

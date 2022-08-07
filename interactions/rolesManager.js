@@ -1,16 +1,15 @@
-const roles = require('../../config/roles.json');
+const roles = require('../config/roles.json');
 
 module.exports = {
-    name: 'interactionCreate',
+    name: 'rolesManager',
     async execute(interaction) {
-        if(!interaction.isButton()) { return; }
-
-        const button_role_id = interaction.customId;
+        const data = interaction.customId.split(';');
+        const roleId = data[1];
         const interact_user = interaction.guild.members.cache.get(interaction.user.id);
 
-        const role_stackable = Object.values(roles.stackables).flat().find(r => r.id === button_role_id);
+        const role_stackable = Object.values(roles.stackables).flat().find(r => r.id === roleId);
         if(role_stackable) { // Roles de Alertas y Hobbies
-            if(!interaction.member.roles.cache.some(r => r.id === button_role_id)) {
+            if(!interaction.member.roles.cache.some(r => r.id === roleId)) {
                 interact_user.roles.add(role_stackable.id);
                 return interaction.reply({ content: "<:theiStonks:905161849459314789> Te he otorgado el rol de `"+role_stackable.name+"`. ", ephemeral: true });
             } else {
@@ -19,7 +18,7 @@ module.exports = {
             }
         }
 
-        const role_unique = Object.values(roles.unique).flat().find(r => r.id === button_role_id);
+        const role_unique = Object.values(roles.unique).flat().find(r => r.id === roleId);
         if(role_unique) { // Roles de Colores
             for(let i = 0; i < roles.unique.colores.length; i++) {
                 if(role_unique.id == roles.unique.colores[i].id) {

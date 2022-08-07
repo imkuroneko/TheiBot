@@ -5,7 +5,6 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 
 ### 📚 Librerías Utilizadas
 ```
-· @discordjs/builders
 · @discordjs/rest
 · @discordjs/voice
 · axios
@@ -15,7 +14,8 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 ```
 
 ### 🧰 Utilidades Ya Implementadas
-- Comandos custom : tanto con `!` como con `/`
+- Comandos libres: comandos `/slash`
+- Comandos administrativos: con el prefix que se defina
 - Conectarse a un canal específico (just as decorative).
 - Enviar mensajes de bienvenidas.
 - Enviar mensajes como log de entrada/salida de usuarios.
