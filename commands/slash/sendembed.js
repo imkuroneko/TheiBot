@@ -1,3 +1,5 @@
+const config  = require('../../config/bot.json');
+
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
@@ -15,7 +17,11 @@ module.exports = {
             }
 
             if(!(isJsonString(embed))) {
-                return interaction.reply({ content: 'este embed no tiene un formato.', ephemeral: true });
+                return interaction.reply({ content: 'este embed no tiene un formato válido.', ephemeral: true });
+            }
+
+            if(interaction.user.id != config.ownerId) {
+                return interaction.reply({ content: '<:theiFaka:925597678086283294> No tienes permiso para utilizar este comando hooman...', ephemeral: true });
             }
 
             const channel = interaction.client.channels.cache.find(channel => channel.id == interaction.channelId);

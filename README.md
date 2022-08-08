@@ -14,15 +14,15 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 ```
 
 ### 🧰 Utilidades Ya Implementadas
-- Comandos libres: comandos `/slash`
+- Comandos de uso libres (`/slash`)
 - Comandos administrativos: con el prefix que se defina
 - Conectarse a un canal específico (just as decorative).
 - Enviar mensajes de bienvenidas.
 - Enviar mensajes como log de entrada/salida de usuarios.
 - Otorgar roles a los usuarios según reacción con mensaje.
 
-### 🧰 Utilidades Por implementar
-[Ideas por implementar disponible aquí 🦄](https://github.com/imkuroneko/TheiBot/projects/1)
+### 📚 Utilidades Por implementar
+[Documentación 🦄](https://imkuroneko.gitbook.io/theibot/)
 
 -----
 

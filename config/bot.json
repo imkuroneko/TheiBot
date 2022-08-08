@@ -1,7 +1,7 @@
 {
     "clientId": "",
     "token"   : "",
-    "prefix"  : "!",
+    "prefix"  : "",
     "guildId" : "",
     "ownerId" : ""
 }

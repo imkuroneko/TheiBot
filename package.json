@@ -1,6 +1,6 @@
 {
   "name": "theibot",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Custom Discord bot",
   "main": "index.js",
   "scripts": {

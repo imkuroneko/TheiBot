@@ -1,12 +1,12 @@
 [
-    { "type": "WATCHING" , "message": "Hoomans en Discord™" },
-    { "type": "WATCHING" , "message": "Nuggots on KFC 🍗" },
-    { "type": "WATCHING" , "message": "Grey's Anatomy" },
-    { "type": "WATCHING" , "message": "My Little Ponny 🌈" },
+    { "type": "watching" , "message": "Hoomans en Discord™" },
+    { "type": "watching" , "message": "Nuggots on KFC 🍗" },
+    { "type": "watching" , "message": "Grey's Anatomy" },
+    { "type": "watching" , "message": "My Little Ponny 🌈" },
 
-    { "type": "PLAYING",  "message": "Dead By Daylight" },
-    { "type": "PLAYING",  "message": "Fortnite" },
-    { "type": "PLAYING",  "message": "Counter Strike: Unicorns Offensive Squad" },
-    { "type": "PLAYING",  "message": "UwUcraft" },
-    { "type": "PLAYING",  "message": "Neko Neko Cafeteria Club" }
+    { "type": "playing",  "message": "Dead By Daylight" },
+    { "type": "playing",  "message": "Fortnite" },
+    { "type": "playing",  "message": "Counter Strike: Unicorns Offensive Squad" },
+    { "type": "playing",  "message": "UwUcraft" },
+    { "type": "playing",  "message": "Neko Neko Cafeteria Club" }
 ]
