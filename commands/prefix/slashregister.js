@@ -7,7 +7,7 @@ const fs = require('fs');
 exports.run = (client, message, args) => {
     try {
         if(message.author.id != ownerId) {
-            message.reply("🚨 **no tienes permiso para ejecutar este comando!**");
+            return message.reply("🚨 **no tienes permiso para ejecutar este comando!**");
         }
 
         const rest = new REST({ version: '10' }).setToken(token);

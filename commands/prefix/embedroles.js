@@ -2,6 +2,10 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 exports.run = (client, message, args) => {
     try {
+        if(message.author.id != ownerId) {
+            return message.reply("🚨 **no tienes permiso para ejecutar este comando!**");
+        }
+
         // ======================= Roles de alertas ========================
         message.channel.send({ embeds: [{
             color: 0xc676f5,
