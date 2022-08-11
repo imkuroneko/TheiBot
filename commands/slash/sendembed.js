@@ -27,8 +27,6 @@ module.exports = {
             const channel = interaction.client.channels.cache.find(channel => channel.id == interaction.channelId);
             channel.send(JSON.parse(embed));
 
-
-            // channel.send(JSON.parse(embed));
             return interaction.reply({ content: '🦄 listo!', ephemeral: true });
 
             function isJsonString(str) {

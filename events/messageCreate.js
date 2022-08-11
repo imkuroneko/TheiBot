@@ -40,7 +40,6 @@ module.exports = {
             if(!cmd) { return; }
 
             cmd.run(message.client, message, args);
-            cmdSlash
         } catch (error) {
             console.error('[error] event:messageCreate |', error.message);
         }
