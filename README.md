@@ -22,7 +22,7 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 - Otorgar roles a los usuarios según reacción con mensaje.
 
 ### 📚 Utilidades Por implementar
-[Documentación 🦄](https://imkuroneko.gitbook.io/theibot/)
+[Documentación 🦄](https://github.com/imkuroneko/TheiBot/wiki)
 
 -----
 
