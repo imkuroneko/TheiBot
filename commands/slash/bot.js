@@ -1,6 +1,4 @@
-const { token } = require('../../config/bot.json');
-
-const { Client, GatewayIntentBits, Partials, SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const cpuStat = require("cpu-stat");
 const os = require("os");
 
@@ -12,36 +10,26 @@ module.exports = {
     async execute(interaction) {
         try {
             const djsversion = require("discord.js").version;
+            const ping = interaction.client.ws.ping;
+            const uptime = interaction.client.uptime;
 
-            const client2 = new Client({
-                intents: [ GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping ],
-                partials: [ Partials.Message ]
+            cpuStat.usagePercent(function (e, percent, seconds) {
+                return interaction.reply({ embeds: [{
+                    color: 0x62d1f0,
+                    title: '💻 Información del bot y estado del servidor',
+                    fields: [
+                        { name: '🤖 NodeJS', value: "```"+process.version+"```" },
+                        { name: '👾 Discord.JS', value: "```v"+djsversion+"```" },
+                        { name: '🏸 API Latency', value: "```"+ping+"ms```" },
+                        { name: '⌚ Uptime', value: "```"+duration(uptime).map(i=>i).join(", ")+"```" },
+                        { name: '🧮 Consumo Memoria', value: "```"+(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```" },
+                        { name: '🤖 Consumo CPU', value: "```"+percent.toFixed(2)+"%```" },
+                        { name: '💻 Sistema Operativo', value: "```"+os.platform()+" ("+os.arch()+")```" },
+                    ],
+                    thumbnail: { url: 'https://cdn.discordapp.com/emojis/741619183514812425.png', text: 'by KuroNeko' }
+                }] });
             });
 
-            client2.login(token);
-            client2.on('ready', () => {
-                var ping = client2.ws.ping;
-                var uptime = client2.uptime;
-
-                cpuStat.usagePercent(function (e, percent, seconds) {
-                    return interaction.reply({ embeds: [{
-                        color: 0x62d1f0,
-                        title: '💻 Información del bot y estado del servidor',
-                        fields: [
-                            { name: '🤖 NodeJS', value: "```"+process.version+"```" },
-                            { name: '👾 Discord.JS', value: "```v"+djsversion+"```" },
-                            { name: '🏸 API Latency', value: "```"+ping+"ms```" },
-                            { name: '⌚️ Uptime', value: "```"+duration(uptime).map(i=>i).join(", ")+"```" },
-                            { name: '🧮 Consumo Memoria', value: "```"+(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```" },
-                            { name: '🤖 Consumo CPU', value: "```"+percent.toFixed(2)+"%```" },
-                            { name: '💻 Sistema Operativo', value: "```"+os.platform()+" ("+os.arch()+")```" },
-                        ],
-                        thumbnail: { url: 'https://cdn.discordapp.com/emojis/741619183514812425.png', text: 'by KuroNeko' }
-                    }] });
-                });
-
-                client2.destroy();
-            });
 
             function duration(duration, useMilli = false) {
                 let remain = duration;
