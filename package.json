@@ -27,7 +27,7 @@
     "@discordjs/voice": "^0.11.0",
     "axios": "^0.27.2",
     "cpu-stat": "^2.0.1",
-    "discord.js": "^14.0.3",
+    "discord.js": "^14.6.0",
     "fs": "^0.0.2",
     "os": "^0.1.2"
   }
