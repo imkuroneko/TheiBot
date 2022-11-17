@@ -24,7 +24,7 @@
   "homepage": "https://github.com/imkuroneko/theibot#readme",
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
-    "@discordjs/voice": "^0.11.0",
+    "@discordjs/voice": "^0.13.0",
     "axios": "^0.27.2",
     "cpu-stat": "^2.0.1",
     "discord.js": "^14.0.3",
