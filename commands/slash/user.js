@@ -1,6 +1,11 @@
+// Load required resources =================================================================================================
 const { SlashCommandBuilder, UserFlagsBitField } = require('discord.js');
-const badgesIcons = require('../../data/user_badges.json');
+const path = require('path');
 
+// Load configuration files ================================================================================================
+const badgesIcons = require(path.resolve('./data/user_badges.json'));
+
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('user')
@@ -43,7 +48,7 @@ module.exports = {
                 thumbnail: { url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?size=256` }
             }] });
         }).catch((error) => {
-            console.error('[error] cmdSlash:user |', error.message);
+            console.error('cmdSlash:user |', error.message);
         });
     }
 };

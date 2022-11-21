@@ -1,5 +1,10 @@
-const roles = require('../config/roles.json');
+// Load required resources =================================================================================================
+const path = require('path');
 
+// Load configuration files ================================================================================================
+const roles = require(path.resolve('./config/roles.json'));
+
+// Module script ===========================================================================================================
 module.exports = {
     name: 'rolesManager',
     async execute(interaction) {
@@ -11,10 +16,10 @@ module.exports = {
         if(role_stackable) { // Roles de Alertas y Hobbies
             if(!interaction.member.roles.cache.some(r => r.id === roleId)) {
                 interact_user.roles.add(role_stackable.id);
-                return interaction.reply({ content: "<:theiStonks:905161849459314789> Te he otorgado el rol de `"+role_stackable.name+"`. ", ephemeral: true });
+                return interaction.reply({ content: "🙆🏻‍♀️ Te he otorgado el rol de `"+role_stackable.name+"`. ", ephemeral: true });
             } else {
                 interact_user.roles.remove(role_stackable.id);
-                return interaction.reply({ content: "<:theiNoStonks:905161849803259934> Te he retirado el rol de `"+role_stackable.name+"`. ", ephemeral: true });
+                return interaction.reply({ content: "🙆🏻‍♀️ Te he retirado el rol de `"+role_stackable.name+"`. ", ephemeral: true });
             }
         }
 
@@ -27,7 +32,7 @@ module.exports = {
                     interact_user.roles.remove(roles.unique.colores[i].id);
                 }
             }
-            return interaction.reply({ content: "<:theiStonks:905161849459314789> Te he otorgado el color `"+role_unique.name+"`. ", ephemeral: true });
+            return interaction.reply({ content: "🎨 Te he otorgado el color `"+role_unique.name+"`. ", ephemeral: true });
         }
 
     }

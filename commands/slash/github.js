@@ -1,7 +1,8 @@
+// Load required resources =================================================================================================
+const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
 
-const { SlashCommandBuilder } = require('discord.js');
-
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('github')
@@ -57,7 +58,7 @@ module.exports = {
                 ]
             }] });
         } catch(error) {
-            console.error('[error] cmdSlash:github |', error.message);
+            console.error('cmdSlash:github |', error.message);
         };
     }
 };

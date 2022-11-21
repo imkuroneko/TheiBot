@@ -1,5 +1,9 @@
+// Load required resources =================================================================================================
+const { Events } = require('discord.js');
+
+// Module script ===========================================================================================================
 module.exports = {
-    name: 'interactionCreate',
+    name: Events.InteractionCreate,
     async execute(interaction) {
 
         if(interaction.isChatInputCommand()) {
@@ -9,45 +13,23 @@ module.exports = {
 
                 await command.execute(interaction);
             } catch(error) {
-                console.error('[error] event:interactionCreate |',error.message);
+                console.error('event:interactionCreate |',error.message);
                 return interaction.reply({ content: 'oops! hubo un error al ejecutar el comando 😣', ephemeral: true });
             }
         }
 
         if(interaction.isButton()) {
             try {
-                data = interaction.customId.split(';');
-                buttonActions = data[0];
+                const data = interaction.customId.split(';');
+                const buttonActions = data[0];
 
                 const btnAction = interaction.client.interactions.get(buttonActions);
                 if(!btnAction) { return; }
 
                 await btnAction.execute(interaction);
             } catch(error) {
-                console.error('[error] event:interactionCreate |',error.message);
+                console.error('event:interactionCreate |',error.message);
             }
         }
     }
 };
-
-
-
-// v1
-// module.exports = {
-//     name: 'interactionCreate',
-//     async execute(interaction) {
-
-//         if(!interaction.isChatInputCommand()) { return; }
-
-//         const command = interaction.client.commandsSlash.get(interaction.commandName);
-
-//         if(!command) { return; }
-
-//         try {
-//             await command.execute(interaction);
-//         } catch(error) {
-//             console.error('interactionCreate :: '+error.message);
-//             return interaction.reply({ content: 'oops! hubo un error al ejecutar el comando 😣', ephemeral: true });
-//         }
-//     }
-// };

@@ -1,5 +1,7 @@
+// Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
 
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('nuggots')
@@ -7,9 +9,9 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         try {
-            return interaction.reply('<:nuggots:864676232737718292> **Nuggots for the confederation!** <a:bongoThei:919759634087149608>');
-        } catch (error) {
-            console.error('[error] cmdSlash:nuggots |', error.message);
+            return interaction.reply('**Nuggots for the confederation!** <:theiNuggot:1041412115728191598>');
+        } catch(error) {
+            console.error('cmdSlash:nuggots |', error.message);
         }
     }
 };

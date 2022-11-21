@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
-        name : "[NKT Discord] Thei",
+        name : "Thei",
         script : "./index.js",
 
         watch : true,

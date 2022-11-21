@@ -1,37 +1,23 @@
-const config = require('../config/bot.json');
+// Load required resources =================================================================================================
+const { Events } = require('discord.js');
+const path = require('path');
 
+// Load configuration files ================================================================================================
+const { prefix } = require(path.resolve('./config/bot.json'));
+
+// Module script ===========================================================================================================
 module.exports = {
-    name: 'messageCreate',
+    name: Events.MessageCreate,
     async execute(message) {
         try {
             // 🚨 Ignore bots
             if(message.author.bot) { return; }
 
-            // 🦄 Legacy content from v0.2 =======================================================================
-            // if(!message.content.indexOf(config.prefix) <= 0) {
-            //     nuggots_ = ['nugget', 'nuggot', 'nyuggot', 'nuggat'];
-            //     for(let index = 0; index < nuggots_.length; index++) {
-            //         if(message.content.toLowerCase().includes(nuggots_[index])) {
-            //             message.reply("Gimme nuggots! <:nuggots:864676232737718292>");
-            //         }
-            //     }
-
-            //     thei_ = ['thei', 'theei', 'theii'];
-            //     for(let index = 0; index < thei_.length; index++) {
-            //         if(message.content.toLowerCase().includes(thei_[index])) {
-            //             message.reply("How you dare you hooman to summon me! <:theiFaka:925597678086283294>");
-            //         }
-            //     }
-            // }
-            // ==================================================================================================
-
             // 🚨 Ignore when not prefix
-            if(message.content.indexOf(config.prefix) !== 0) {
-                return;
-            }
+            if(message.content.indexOf(prefix) !== 0) { return; }
 
             // 🥞 Split content
-            const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+            const args = message.content.slice(prefix.length).trim().split(/ +/g);
             const command = args.shift().toLowerCase();
 
             // 🔍 Search command
@@ -40,8 +26,8 @@ module.exports = {
             if(!cmd) { return; }
 
             cmd.run(message.client, message, args);
-        } catch (error) {
-            console.error('[error] event:messageCreate |', error.message);
+        } catch(error) {
+            console.error('event:messageCreate |', error.message);
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-    "roleWhenJoin" : "979387907343261726",
+    "defaultRole" : "979387907343261726",
 
     "stackables" : {
         "alertas" : [

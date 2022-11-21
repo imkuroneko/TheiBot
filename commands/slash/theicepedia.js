@@ -1,5 +1,11 @@
+// Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
+const path = require('path');
 
+// Load configuration files ================================================================================================
+const recetas = require(path.resolve('./data/recetas.json'));
+
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('theicepedia')
@@ -7,7 +13,6 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         try {
-            const recetas = require('../../data/recetas.json');
             const receta = recetas[Math.floor(Math.random() * recetas.length)];
     
             return interaction.reply({ embeds: [{
@@ -19,8 +24,8 @@ module.exports = {
                 ],
                 thumbnail: { url: `https://cdn.discordapp.com/emojis/919761441186254939.png?size=512&quality=lossless` }
             }] });
-        } catch (error) {
-            console.error('[error] cmdSlash:theicepedia |', error.message);
+        } catch(error) {
+            console.error('cmdSlash:theicepedia |', error.message);
         }
     }
 };

@@ -1,5 +1,7 @@
+// Load required resources =================================================================================================
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
+// Module script ===========================================================================================================
 exports.run = (client, message, args) => {
     try {
         if(message.author.id != ownerId) {
@@ -44,6 +46,6 @@ exports.run = (client, message, args) => {
         ) ] });
 
     } catch(error) {
-        console.error('[error] cmdPrefix:embedroles |',error.message);
+        console.error('cmdPrefix:embedroles |',error.message);
     }
 }

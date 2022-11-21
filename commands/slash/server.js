@@ -1,5 +1,7 @@
+// Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
 
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('server')
@@ -25,8 +27,8 @@ module.exports = {
                     { name: '🎨 Roles', value: "```"+info.roles.cache.size+"```" }
                 ]
             }] });
-        } catch (error) {
-            console.error('[error] cmdSlash:server |', error.message);
+        } catch(error) {
+            console.error('cmdSlash:server |', error.message);
         }
     }
 };

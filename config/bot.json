@@ -1,7 +1,8 @@
 {
-    "clientId": "",
-    "token"   : "",
-    "prefix"  : "",
-    "guildId" : "",
-    "ownerId" : ""
+    "clientId"   : "",
+    "guildId"    : "",
+    "ownerId"    : "",
+    "token"      : "",
+    "prefix"     : "!",
+    "timezoneSv" : "America/Asuncion"
 }

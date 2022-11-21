@@ -1,7 +1,11 @@
-const config  = require('../../config/bot.json');
-
+// Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
+const path = require('path');
 
+// Load configuration files ================================================================================================
+const { ownerId }  = require(path.resolve('./config/bot.json'));
+
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('sendembed')
@@ -16,12 +20,12 @@ module.exports = {
                 return interaction.reply({ content: '🚨 embed no válido', ephemeral: true });
             }
 
-            if(!(isJsonString(embed))) {
-                return interaction.reply({ content: 'este embed no tiene un formato válido.', ephemeral: true });
+            if(interaction.user.id != ownerId) {
+                return interaction.reply({ content: 'No tienes permiso para utilizar este comando hooman...', ephemeral: true });
             }
 
-            if(interaction.user.id != config.ownerId) {
-                return interaction.reply({ content: '<:theiFaka:925597678086283294> No tienes permiso para utilizar este comando hooman...', ephemeral: true });
+            if(!(isJsonString(embed))) {
+                return interaction.reply({ content: 'Este embed no tiene un formato válido.', ephemeral: true });
             }
 
             const channel = interaction.client.channels.cache.find(channel => channel.id == interaction.channelId);
@@ -37,8 +41,8 @@ module.exports = {
                 }
                 return true;
             }
-        } catch (error) {
-            console.error('[error] cmdSlash:sendembed |', error.message);
+        } catch(error) {
+            console.error('cmdSlash:sendembed |', error.message);
         }
     }
 };

@@ -1,9 +1,12 @@
-const { clientId, ownerId, token } = require('../../config/bot.json');
-
+// Load required resources =================================================================================================
+const path = require('path');
 const { Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');
-const fs = require('fs');
 
+// Load configuration files ================================================================================================
+const { clientId, ownerId, token } = require(path.resolve('./config/bot.json'));
+
+// Module script ===========================================================================================================
 exports.run = (client, message, args) => {
     try {
         if(message.author.id != ownerId) {
@@ -13,11 +16,11 @@ exports.run = (client, message, args) => {
         const rest = new REST({ version: '10' }).setToken(token);
 
         rest.put(Routes.applicationCommands(clientId), { body: client.slashRegister }).then(() => {
-            message.reply('🦄 Todos los comandos fueron registrados/actualizados!');
+            return message.reply('🦄 **Se han registrado/actualizado los comandos slash**');
         }).catch((error) => {
-            console.error('prfx cmd slashregister ::'+error.message);
+            return message.reply('🦄 **Hubo un inconveniente al registar/actualizar los comandos**\n```'+error.message+'```');
         });
-    } catch (error) {
-        console.error('[error] cmdPrefix:slashregister |',error.message);
+    } catch(error) {
+        console.error('cmdPrefix:slashregister |',error.message);
     }
 }

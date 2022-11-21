@@ -1,7 +1,9 @@
+// Load required resources =================================================================================================
 const { SlashCommandBuilder } = require("discord.js");
 const cpuStat = require("cpu-stat");
 const os = require("os");
 
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('bot')
@@ -57,8 +59,8 @@ module.exports = {
                     return parts
                 }
             }
-        } catch (error) {
-            console.error('[error] cmdSlash:bot |', error.message);
+        } catch(error) {
+            console.error('cmdSlash:bot |', error.message);
         }
     }
 };

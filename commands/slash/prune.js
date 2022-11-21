@@ -1,6 +1,11 @@
-const config  = require('../../config/bot.json');
+// Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
+const path = require('path');
 
+// Load configuration files ================================================================================================
+const { ownerId }  = require(path.resolve('./config/bot.json'));
+
+// Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('prune')
@@ -15,12 +20,12 @@ module.exports = {
                 return interaction.reply({ content: 'Debes escribir un número...', ephemeral: true });
             }
 
-            if(cantidad < 1 || cantidad > 50) {
-                return interaction.reply({ content: '<:theiFaka:925597678086283294> Hooman... solo puedo borrar hasta 50 mensajes a la vez.', ephemeral: true });
+            if(interaction.user.id != ownerId) {
+                return interaction.reply({ content: 'No tienes permiso para utilizar este comando hooman...', ephemeral: true });
             }
 
-            if(interaction.user.id != config.ownerId) {
-                return interaction.reply({ content: '<:theiFaka:925597678086283294> No tienes permiso para utilizar este comando hooman...', ephemeral: true });
+            if(cantidad < 1 || cantidad > 50) {
+                return interaction.reply({ content: '❌ Hooman... solo puedo borrar hasta 50 mensajes a la vez.', ephemeral: true });
             }
 
             await interaction.channel.bulkDelete(cantidad, true).catch(error => {
@@ -29,8 +34,8 @@ module.exports = {
             });
 
             return interaction.reply({ content: `Se han borrado exitosamente \`${cantidad}\` mensajes.`, ephemeral: true });
-        } catch (error) {
-            console.error('[error] cmdSlash:prune |', error.message);
+        } catch(error) {
+            console.error('cmdSlash:prune |', error.message);
         }
     },
 };
