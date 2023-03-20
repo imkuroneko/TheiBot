@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const recetas = require(path.resolve('./data/recetas.json'));
+const recetas = require(path.resolve('./data/json/recipes.json'));
 
 // Module script ===========================================================================================================
 module.exports = {

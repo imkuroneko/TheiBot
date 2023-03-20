@@ -23,8 +23,8 @@ module.exports = {
                     color: 0xcc3366,
                     description:
                         `Bienvenido <@${userId}> al servidor 👋🏻 Esperamos disfrutes tu estadía en el servidor.\n\n
-                        **Sobre Mí:** <#637941772063866890>\n
-                        **Reglas del servidor:** <#751891992178327573>\n
+                        **Sobre Mí:** <#637941772063866890>
+                        **Reglas del servidor:** <#751891992178327573>
                         **Obtén roles geniales:** <#938245623495393300>
                     `
                 }] });

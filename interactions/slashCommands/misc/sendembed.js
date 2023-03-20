@@ -9,7 +9,7 @@ const { ownerId }  = require(path.resolve('./config/bot.json'));
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('sendembed')
-        .setDescription('Enviar un embed en este canal. (Puedes crear el formato utilizando eb.nadeko.bot )')
+        .setDescription('Enviar un embed en este canal. (Herramienta disponible en kuroneko.im/tools)')
         .addStringOption(option => option.setName('embed').setDescription('El embed a enviar').setRequired(true))
         .setDMPermission(false),
     async execute(interaction) {

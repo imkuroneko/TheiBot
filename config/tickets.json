@@ -1,0 +1,5 @@
+{
+    "staffRole"          : "",
+    "secDelTicket"       : 10,
+    "deleteTicketOnLeft" : true
+}

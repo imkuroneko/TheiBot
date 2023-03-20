@@ -6,7 +6,7 @@ const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
 const { presenceVoice } = require(path.resolve('./config/channels.json'));
-const activity = require(path.resolve('./data/activity.json'));
+const activity = require(path.resolve('./data/json/activity.json'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -46,7 +46,7 @@ module.exports = {
 
         // Bot presence (voice channel)
         try {
-            if(presenceVoice.length > 0) {
+            if((typeof presenceVoice != 'undefined') && (presenceVoice.length > 0)) {
                 const voiceChannel = client.channels.cache.get(presenceVoice);
 
                 var conn = connectToVoice(voiceChannel);
@@ -74,7 +74,5 @@ module.exports = {
         } catch(error) {
             console.error('event:ready:loadCrons |', error.message);
         }
-
-        console.log('[init] Bot operativo!');
     }
 };

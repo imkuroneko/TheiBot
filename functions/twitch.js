@@ -10,7 +10,7 @@ const { timezoneSv } = require(path.resolve('./config/bot.json'));
 const { clientId, clientSecret } = require(path.resolve('./config/twitch.json'));
 
 // Load database ===========================================================================================================
-const sql = new SQLite(path.resolve('./data/twitch.sqlite'));
+const sql = new SQLite(path.resolve('./data/db/twitch.sqlite'));
 
 // Module script ===========================================================================================================
 module.exports = {

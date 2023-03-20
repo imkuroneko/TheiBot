@@ -3,7 +3,7 @@ const { SlashCommandBuilder, UserFlagsBitField } = require('discord.js');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const badgesIcons = require(path.resolve('./data/user_badges.json'));
+const badgesIcons = require(path.resolve('./data/json/user_badges.json'));
 
 // Module script ===========================================================================================================
 module.exports = {

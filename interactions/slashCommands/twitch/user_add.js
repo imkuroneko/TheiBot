@@ -3,7 +3,7 @@ const { SlashCommandBuilder, ChannelType } = require('discord.js');
 const path = require('path');
 
 // Load custom functions ===================================================================================================
-const helper = require(path.resolve('./functions/utilitarios'));
+const helper = require(path.resolve('./functions/helpers'));
 const twitch = require(path.resolve('./functions/twitch'));
 
 // Module script ===========================================================================================================

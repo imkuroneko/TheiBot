@@ -1,5 +1,5 @@
 {
-    "clientId"     : "",
-    "clientSecret" : "",
-    "tagAlert"     : "everyone"
+    "clientId"     : "client_id",
+    "clientSecret" : "client_secret",
+    "tagAlert"     : "id del rol a taguear (o 'everyone')"
 }
