@@ -3,6 +3,7 @@
 Pequeña base de bot utilitario para Discord, estará siendo actualizada de forma periódica según encuentre cosas de mi interés para ir implementándole.
 
 <h3 align="center"> 🧰 Utilidades Ya Implementadas </h3>
+
 - Comandos de uso libres (`/slash`)
 - Comandos administrativos: con el prefix que se defina
 - Conectarse a un canal específico (just as decorative).
@@ -11,8 +12,9 @@ Pequeña base de bot utilitario para Discord, estará siendo actualizada de form
 - Otorgar roles a los usuarios según reacción con mensaje.
 
 <h3 align="center"> 💡 Por crear </h3>
+
 - Guia 100% explicativa de como configurar todo
-- 
+
 
 -----
 
