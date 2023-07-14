@@ -2,7 +2,7 @@
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const roles = require(path.resolve('./config/roles.json'));
+const roles = require(path.resolve('./config/roles'));
 
 // Module script ===========================================================================================================
 module.exports = {

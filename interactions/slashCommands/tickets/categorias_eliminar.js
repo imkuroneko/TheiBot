@@ -1,7 +1,7 @@
 // Load required resources =================================================================================================
-const path = require('path');
-const { color } = require('console-log-colors');
 const { SlashCommandBuilder } = require('discord.js');
+const { color } = require('console-log-colors');
+const path = require('path');
 
 // Load SQLite Helper ======================================================================================================
 const sqlite = require(path.resolve('./functions/tickets.js'));

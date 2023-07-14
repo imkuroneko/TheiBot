@@ -1,5 +1,6 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
+const { color } = require('console-log-colors');
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -28,7 +29,7 @@ module.exports = {
                 ]
             }] });
         } catch(error) {
-            console.error('cmdSlash:server |', error.message);
+            console.error(color.red('[interaction:slashcmd:server]'), error.message);
         }
     }
 };

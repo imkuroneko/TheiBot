@@ -5,7 +5,7 @@ const fs = require('fs');
 const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
-const { presenceVoice } = require(path.resolve('./config/channels.json'));
+const { presenceVoice } = require(path.resolve('./config/channels'));
 const activity = require(path.resolve('./data/json/activity.json'));
 
 // Module script ===========================================================================================================

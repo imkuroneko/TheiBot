@@ -4,7 +4,7 @@ const { Events } = require('discord.js');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { deleteTicketOnLeft } = require(path.resolve('./config/tickets.json'));
+const { deleteTicketOnLeft } = require(path.resolve('./config/tickets'));
 
 // Load SQLite Helper ======================================================================================================
 const sqlite = require(path.resolve('./functions/tickets.js'))

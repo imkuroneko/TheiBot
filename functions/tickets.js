@@ -6,7 +6,7 @@ const timezone = require('dayjs/plugin/timezone');
 const { color } = require('console-log-colors');
 
 // Load configuration files ================================================================================================
-const { timezoneSv } = require(path.resolve('./config/bot.json'));
+const { timezoneSv } = require(path.resolve('./config/bot'));
 
 // Database ================================================================================================================
 const sql = new SQLite(path.resolve('./data/db/tickets.sqlite'));

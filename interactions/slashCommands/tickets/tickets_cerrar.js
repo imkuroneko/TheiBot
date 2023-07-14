@@ -1,11 +1,11 @@
 // Load required resources =================================================================================================
-const { color } = require('console-log-colors');
 const { SlashCommandBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
+const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { clientId } = require(path.resolve('./config/bot.json'));
-const { staffRole } = require(path.resolve('./config/tickets.json'));
+const { clientId } = require(path.resolve('./config/bot'));
+const { staffRole } = require(path.resolve('./config/tickets'));
 const { template } = require(path.resolve('./data/json/embeds.json'));
 
 // Load SQLite Helper ======================================================================================================
@@ -64,7 +64,7 @@ module.exports = {
                 channelEdit.edit({ permissionOverwrites: channelPermissions });
             });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:cerrar]'), error);
+            console.error(color.red('[interaction:slashcmd:cerrar]'), error.message);
         }
     }
 };

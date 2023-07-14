@@ -1,12 +1,12 @@
 // Load required resources =================================================================================================
-const { color } = require('console-log-colors');
 const { ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
+const { color } = require('console-log-colors');
 const path = require('path');
 const wait = require('node:timers/promises').setTimeout;
 
 // Load configuration files ================================================================================================
-const { clientId } = require(path.resolve('./config/bot.json'));
-const { staffRole } = require(path.resolve('./config/tickets.json'));
+const { clientId } = require(path.resolve('./config/bot'));
+const { staffRole } = require(path.resolve('./config/tickets'));
 const { template, footer } = require(path.resolve('./data/json/embeds.json'));
 
 // Load SQLite Helper ======================================================================================================
@@ -82,7 +82,7 @@ module.exports = {
                 console.error(color.red('[interaction:selectmenu:createticket:createticket]'), error.message);
             });
         } catch(error) {
-            console.error(color.red('[interaction:selectmenu:createticket]'), error);
+            console.error(color.red('[interaction:selectmenu:createticket]'), error.message);
         }
     }
 };

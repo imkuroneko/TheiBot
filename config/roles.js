@@ -1,6 +1,9 @@
-{
+module.exports = {
+
+    // Rol default : utilizado para el evento de verificación
     "defaultRole" : "979387907343261726",
 
+    // Roles que se pueden acumular por categoría
     "stackables" : {
         "alertas" : [
             { "name" : "🎫⠀RaffleAlert", "id" : "665208554726359064" },
@@ -14,6 +17,7 @@
         ]
     },
 
+    // Roles únicos por categoría
     "unique" : {
         "colores" : [
             { "name" : "#93b97d", "id" : "908324747098595368" },

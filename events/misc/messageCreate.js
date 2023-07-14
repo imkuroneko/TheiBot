@@ -4,7 +4,7 @@ const { Events } = require('discord.js');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { prefix } = require(path.resolve('./config/bot.json'));
+const { prefix } = require(path.resolve('./config/bot'));
 
 // Module script ===========================================================================================================
 module.exports = {

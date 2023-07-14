@@ -6,8 +6,8 @@ const timezone = require('dayjs/plugin/timezone');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { timezoneSv } = require(path.resolve('./config/bot.json'));
-const { clientId, clientSecret } = require(path.resolve('./config/twitch.json'));
+const { timezoneSv } = require(path.resolve('./config/bot'));
+const { clientId, clientSecret } = require(path.resolve('./config/twitch'));
 
 // Load database ===========================================================================================================
 const sql = new SQLite(path.resolve('./data/db/twitch.sqlite'));

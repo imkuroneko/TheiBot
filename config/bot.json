@@ -1,8 +1,0 @@
-{
-    "clientId"   : "id_del_bot",
-    "guildId"    : "id_del_guild",
-    "ownerId"    : "id_del_owner_del_guild",
-    "token"      : "token_del_bot",
-    "prefix"     : "!",
-    "timezoneSv" : "America/Asuncion"
-}

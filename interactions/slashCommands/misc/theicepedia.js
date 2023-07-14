@@ -1,5 +1,6 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
+const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================
@@ -25,7 +26,7 @@ module.exports = {
                 thumbnail: { url: `https://cdn.discordapp.com/emojis/919761441186254939.png?size=512&quality=lossless` }
             }] });
         } catch(error) {
-            console.error('cmdSlash:theicepedia |', error.message);
+            console.error(color.red('[interaction:slashcmd:theicepedia]'), error.message);
         }
     }
 };

@@ -1,11 +1,11 @@
 // Load required resources =================================================================================================
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const { color } = require('console-log-colors');
 const path = require('path');
 const fs = require('fs');
-const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 
 // Load configuration files ================================================================================================
-const { token } = require(path.resolve('./config/bot.json'));
+const { token } = require(path.resolve('./config/bot'));
 
 // Define client Intents ===================================================================================================
 const client = new Client({
@@ -62,8 +62,6 @@ try {
 } catch(error) {
     console.error(color.red('[load:interactions:slash]'), error.message);
 }
-
-return;
 
 // Interactions :: Buttons =================================================================================================
 try {

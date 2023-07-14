@@ -1,9 +1,10 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
+const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { ownerId }  = require(path.resolve('./config/bot.json'));
+const { ownerId }  = require(path.resolve('./config/bot'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -42,7 +43,7 @@ module.exports = {
                 return true;
             }
         } catch(error) {
-            console.error('cmdSlash:sendembed |', error.message);
+            console.error(color.red('[interaction:slashcmd:sendembed]'), error.message);
         }
     }
 };

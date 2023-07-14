@@ -4,8 +4,8 @@ const path = require('path');
 const cron = require('cron');
 
 // Load configuration files ================================================================================================
-const { timezoneSv } = require(path.resolve('./config/bot.json'));
-const { tagAlert } = require(path.resolve('./config/twitch.json'));
+const { timezoneSv } = require(path.resolve('./config/bot'));
+const { tagAlert } = require(path.resolve('./config/twitch'));
 
 // Load custom functions ===================================================================================================
 const twitch = require(path.resolve('./functions/twitch'));

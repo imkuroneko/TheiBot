@@ -4,7 +4,7 @@ const path = require('path');
 const wait = require('node:timers/promises').setTimeout;
 
 // Load configuration files ================================================================================================
-const { secDelTicket } = require(path.resolve('./config/tickets.json'));
+const { secDelTicket } = require(path.resolve('./config/tickets'));
 const { template } = require(path.resolve('./data/json/embeds.json'));
 
 // Load SQLite Helper ======================================================================================================
@@ -46,7 +46,7 @@ module.exports = {
             const channelDel = await interaction.guild.channels.cache.get(optionId);
             channelDel.delete();
         } catch(error) {
-            console.error(color.red('[interaction:buttons:deleteticket]'), error);
+            console.error(color.red('[interaction:buttons:deleteticket]'), error.message);
         }
     }
 };

@@ -1,6 +1,6 @@
 // Load required resources =================================================================================================
-const { color } = require('console-log-colors');
 const { SlashCommandBuilder } = require('discord.js');
+const { color } = require('console-log-colors');
 
 // Module script ===========================================================================================================
 module.exports = {

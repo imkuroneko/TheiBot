@@ -1,6 +1,6 @@
 // Load required resources =================================================================================================
-const { color } = require('console-log-colors');
 const { SlashCommandBuilder } = require('discord.js');
+const { color } = require('console-log-colors');
 const cpuStat = require('cpu-stat');
 const path = require('path');
 const os = require('os');

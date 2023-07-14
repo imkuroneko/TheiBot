@@ -3,8 +3,8 @@ const { Events } = require('discord.js');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { log_JoinLeft } = require(path.resolve('./config/channels.json'));
-const { clientId } = require(path.resolve('./config/bot.json'));
+const { log_JoinLeft } = require(path.resolve('./config/channels'));
+const { clientId } = require(path.resolve('./config/bot'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
             const user   = member.user.tag;
             const userId = member.user.id;
 
-            if(log_JoinLeft.length > 0) {
+            if(log_JoinLeft) {
                 const sender_log = member.guild.channels.cache.get(log_JoinLeft);
                 sender_log.send({ embeds: [{
                     color: 0xe35d5d,

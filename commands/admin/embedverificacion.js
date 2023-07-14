@@ -3,8 +3,8 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { ownerId } = require(path.resolve('./config/bot.json'));
-const { defaultRole } = require(path.resolve('./config/roles.json'));
+const { ownerId } = require(path.resolve('./config/bot'));
+const { defaultRole } = require(path.resolve('./config/roles'));
 
 // Module script ===========================================================================================================
 exports.run = (client, message, args) => {

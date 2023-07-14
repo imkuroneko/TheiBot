@@ -1,5 +1,6 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder, UserFlagsBitField } = require('discord.js');
+const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================
@@ -48,7 +49,7 @@ module.exports = {
                 thumbnail: { url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?size=256` }
             }] });
         }).catch((error) => {
-            console.error('cmdSlash:user |', error.message);
+            console.error(color.red('[interaction:slashcmd:user]'), error.message);
         });
     }
 };
