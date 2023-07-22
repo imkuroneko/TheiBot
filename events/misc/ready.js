@@ -1,5 +1,6 @@
 // Load required resources =================================================================================================
 const { Events, ActivityType } = require('discord.js');
+const { color } = require('console-log-colors');
 const path = require('path');
 const fs = require('fs');
 const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
@@ -41,7 +42,7 @@ module.exports = {
                 }, 60000);
             }
         } catch(error) {
-            console.error('event:ready:setPresence |', error.message);
+            console.error(color.red('[event:ready:setPresence]'), error.message);
         }
 
         // Bot presence (voice channel)
@@ -59,7 +60,7 @@ module.exports = {
                 }
             }
         } catch(error) {
-            console.error('event:ready:voicePresence |', error.message);
+            console.error(color.red('[event:ready:voicePresence]'), error.message);
         }
 
         // Crons
@@ -72,7 +73,7 @@ module.exports = {
                 }
             }
         } catch(error) {
-            console.error('event:ready:loadCrons |', error.message);
+            console.error(color.red('[event:ready:loadCrons]'), error.message);
         }
     }
 };
