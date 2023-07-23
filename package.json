@@ -30,6 +30,7 @@
     "@discordjs/voice": "^0.16.0",
     "axios": "^1.4.0",
     "better-sqlite3": "^8.4.0",
+    "canvas": "^2.11.2",
     "cpu-stat": "^2.0.1",
     "cron": "^2.3.1",
     "dayjs": "^1.11.9",

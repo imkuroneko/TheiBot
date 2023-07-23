@@ -17,6 +17,9 @@ module.exports = {
     // este es en formato hex pero sin el '#' al inicio para que discordjs lo interprete correctamente
     "embedColor" : "cc3366",
 
+    // Se envía con imagen el mensaje de bienvenida?
+    "welcomeHasImage" : false,
+
     // Zona horaria para cronjobs
     "timezoneSv" : "America/Asuncion"
 }
