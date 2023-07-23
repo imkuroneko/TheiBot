@@ -1,5 +1,4 @@
 // Load required resources =================================================================================================
-const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================
@@ -17,6 +16,6 @@ exports.run = (client, message, args) => {
         }, 2500);
     } catch(error) {
         message.reply('`[cmdPrefix:restartbot]` error: '+error.message);
-        console.error(color.red('[cmdPrefix:restartbot]'), error.message);
+        console.error('[cmdPrefix:restartbot]', error.message);
     }
 }

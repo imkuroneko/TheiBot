@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder, ChannelType } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load SQLite Helper ======================================================================================================
@@ -67,7 +66,7 @@ module.exports = {
 
             return interaction.reply({ embeds: [{ color: 0x4f30b3, description: content, }], ephemeral: true });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:catnuevo]'), error.message);
+            console.error('[interaction:slashcmd:ticket:catnuevo]', error.message);
         }
     }
 };

@@ -1,6 +1,10 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
 const { color } = require('console-log-colors');
+const path = require('path');
+
+// Load configuration files ================================================================================================
+const { embedColor } = require(path.resolve('./config/bot'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -15,7 +19,7 @@ module.exports = {
             const tier = info.premiumTier;
 
             return interaction.reply({ embeds: [{
-                color: 0xcc3366,
+                color: parseInt(embedColor, 16),
                 title: `🔍 Información del servidor`,
                 thumbnail: { url: "https://cdn.discordapp.com/icons/"+info.id+"/"+info.icon+".webp?size=256" },
                 fields: [
@@ -29,7 +33,7 @@ module.exports = {
                 ]
             }] });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:server]'), error.message);
+            console.error('[interaction:slashcmd:server]', error.message);
         }
     }
 };

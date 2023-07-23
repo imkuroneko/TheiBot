@@ -22,11 +22,11 @@ module.exports = {
                 await axios.post('https://id.twitch.tv/oauth2/token', headers).then((rst) => {
                     resolve(rst.data);
                 }).catch((error) => {
-                    console.error('function:twitch:getAuth:axios |', error.message);
+                    console.error('[function:twitch:getAuth:axios]', error.message);
                     reject(null);
                 });
             } catch(error) {
-                console.error('function:twitch:getAuth |', error.message);
+                console.error('[function:twitch:getAuth]', error.message);
                 reject(null);
             }
         });
@@ -41,12 +41,12 @@ module.exports = {
                 }).then((rst) => {
                     resolve(rst.data.data[0]);
                 }).catch((error) => {
-                    console.error('function:twitch:getUserInfo:axios |', error.message);
-                    reject('function:twitch:getUserInfo:axios |',error.message);
+                    console.error('[function:twitch:getUserInfoByName:axios]', error.message);
+                    reject('[function:twitch:getUserInfoByName:axios]',error.message);
                 });
             } catch(error) {
-                console.error('function:twitch:getUserInfo |', error.message);
-                reject('function:twitch:getUserInfo |', error.message);
+                console.error('[function:twitch:getUserInfoByName]', error.message);
+                reject('[function:twitch:getUserInfoByName]', error.message);
             }
         });
     },
@@ -60,12 +60,12 @@ module.exports = {
                 }).then((rst) => {
                     resolve(rst.data.data[0]);
                 }).catch((error) => {
-                    console.error('function:twitch:getUserInfo:axios |', error.message);
-                    reject('function:twitch:getUserInfo:axios |',error.message);
+                    console.error('[function:twitch:getUserInfoById:axios]', error.message);
+                    reject('[function:twitch:getUserInfoById:axios]',error.message);
                 });
             } catch(error) {
-                console.error('function:twitch:getUserInfo |', error.message);
-                reject('function:twitch:getUserInfo |', error.message);
+                console.error('[function:twitch:getUserInfoById]', error.message);
+                reject('[function:twitch:getUserInfoById]', error.message);
             }
         });
     },
@@ -79,12 +79,12 @@ module.exports = {
                 }).then((rst) => {
                     resolve(rst.data.data[0]);
                 }).catch((error) => {
-                    console.error('function:twitch:getStreamInfo:axios |', error.message);
-                    reject('function:twitch:getStreamInfo:axios |',error.message);
+                    console.error('[function:twitch:getStreamInfo:axios]', error.message);
+                    reject('[function:twitch:getStreamInfo:axios]',error.message);
                 });
             } catch(error) {
-                console.error('function:twitch:getStreamInfo |', error.message);
-                reject('function:twitch:getStreamInfo |', error.message);
+                console.error('[function:twitch:getStreamInfo]', error.message);
+                reject('[function:twitch:getStreamInfo]', error.message);
             }
         });
     },
@@ -95,7 +95,7 @@ module.exports = {
             const query = sql.prepare(" SELECT * FROM streamers WHERE twitch_account_id = ?; ");
             return query.get(userId);
         } catch(error) {
-            console.error('sqlite:twitch:getStreamerById', error.message);
+            console.error('[[sqlite:twitch:getStreamerById]]', error.message);
         }
     },
 
@@ -104,7 +104,7 @@ module.exports = {
             const query = sql.prepare(" SELECT * FROM streamers WHERE twitch_account_name = ?; ");
             return query.get(userName);
         } catch(error) {
-            console.error('sqlite:twitch:getStreamerByUsername', error.message);
+            console.error('[[sqlite:twitch:getStreamerByUsername]]', error.message);
         }
     },
 
@@ -113,7 +113,7 @@ module.exports = {
             const query = sql.prepare(" SELECT * FROM streamers; ");
             return query.all();
         } catch(error) {
-            console.error('sqlite:twitch:getStreamers', error.message);
+            console.error('[[sqlite:twitch:getStreamers]]', error.message);
         }
     },
 
@@ -127,7 +127,7 @@ module.exports = {
                 dch: discordChannel,
             });
         } catch(error) {
-            console.error('sqlite:twitch:registerTwitchUser', error.message);
+            console.error('[[sqlite:twitch:registerTwitchUser]]', error.message);
         }
     },
 
@@ -139,7 +139,7 @@ module.exports = {
                 tnm: twitchName
             });
         } catch(error) {
-            console.error('sqlite:twitch:updateTwitchName', error.message);
+            console.error('[[sqlite:twitch:updateTwitchName]]', error.message);
         }
     },
 
@@ -150,7 +150,7 @@ module.exports = {
                 tid: twitchId
             });
         } catch(error) {
-            console.error('sqlite:twitch:deleteTwitchAccount', error.message);
+            console.error('[[sqlite:twitch:deleteTwitchAccount]]', error.message);
         }
     },
 
@@ -166,7 +166,7 @@ module.exports = {
                 lup: dayjs().format('YYYY-MM-DD HH:mm:ss'),
             });
         } catch(error) {
-            console.error('sqlite:twitch:registerCurrentStream', error.message);
+            console.error('[sqlite:twitch:registerCurrentStream]', error.message);
         }
     },
 
@@ -175,7 +175,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM stream_tracker WHERE twitch_account_id = ? AND stream_id = ?; ");
             return query.get(streamerId, streamId).count;
         } catch(error) {
-            console.error('sqlite:twitch:getCurrentStream', error.message);
+            console.error('[sqlite:twitch:getCurrentStream]', error.message);
         }
     },
 

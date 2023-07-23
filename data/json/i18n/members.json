@@ -1,0 +1,18 @@
+{
+    "memberJoinPublic" : {
+        "title" : "",
+        "description" : ""
+    },
+    "memberJoinLog" : {
+        "title" : "",
+        "description" : ""
+    },
+    "memberLeftPublic" : {
+        "title" : "",
+        "description" : ""
+    },
+    "memberLeftLog" : {
+        "title" : "",
+        "description" : ""
+    }
+}

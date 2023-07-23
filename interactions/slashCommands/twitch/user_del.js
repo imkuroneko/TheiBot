@@ -24,7 +24,7 @@ module.exports = {
 
             return interaction.reply({ content: '🙆🏻‍♀️ He eliminado al streamer en mi base de datos hooman...', ephemeral: true });
         } catch(error) {
-            console.error('cmdSlash:twitchDel |', error.message);
+            console.error('[interaction:slashcmd:twitch:del]', error.message);
         }
     }
 };

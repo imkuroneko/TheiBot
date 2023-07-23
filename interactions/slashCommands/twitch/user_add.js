@@ -41,7 +41,7 @@ module.exports = {
 
             return interaction.reply({ content: '🙆🏻‍♀️ He registrado al streamer en mi base de datos hooman...', ephemeral: true });
         } catch(error) {
-            console.error('cmdSlash:twitchAdd |', error.message);
+            console.error('[interaction:slashcmd:twitch:add]', error.message);
         }
     }
 };

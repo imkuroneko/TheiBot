@@ -1,13 +1,12 @@
 // Load required resources =================================================================================================
 const { ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 const wait = require('node:timers/promises').setTimeout;
 
 // Load configuration files ================================================================================================
 const { clientId } = require(path.resolve('./config/bot'));
 const { staffRole } = require(path.resolve('./config/tickets'));
-const { template, footer } = require(path.resolve('./data/json/embeds.json'));
+const { template, footer } = require(path.resolve('./data/json/i18n/tickets.json'));
 
 // Load SQLite Helper ======================================================================================================
 const sqlite = require(path.resolve('./functions/tickets.js'));
@@ -79,10 +78,10 @@ module.exports = {
 
                 newChannel.send({ content: `Hola <@${userId}>!`, embeds: [ embed_welcome ], components: [ btns_ticket ] });
             }).catch((error) => {
-                console.error(color.red('[interaction:selectmenu:createticket:createticket]'), error.message);
+                console.error('[interaction:selectmenu:ticket:createticket:createticket]', error.message);
             });
         } catch(error) {
-            console.error(color.red('[interaction:selectmenu:createticket]'), error.message);
+            console.error('[interaction:selectmenu:ticket:createticket]', error.message);
         }
     }
 };

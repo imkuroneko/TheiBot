@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load SQLite Helper ======================================================================================================
@@ -31,7 +30,7 @@ module.exports = {
             await sqlite.deleteCategory(uid);
             return interaction.reply({ content: 'Se ha eliminado la categoría! Recuerda deberás modificar manualmente en los selectores donde lo necesites', ephemeral: true });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:cateliminar]'), error.message);
+            console.error('[interaction:slashcmd:ticket:cateliminar]', error.message);
         }
     }
 };

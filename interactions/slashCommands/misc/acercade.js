@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
                 description: "_*happy unicorn sounds_\n\nPequeño bot utilitario multitasks para Discord.\n**Desarrollado por:** [@KuroNeko](https://github.com/imkuroneko)",
             }] });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:acercade]'), error.message);
+            console.error('[interaction:slashcmd:acercade]', error.message);
         }
     }
 };

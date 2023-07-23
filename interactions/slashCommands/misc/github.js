@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 const axios = require('axios');
 
 // Module script ===========================================================================================================
@@ -59,7 +58,7 @@ module.exports = {
                 ]
             }] });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:github]'), error.message);
+            console.error('[interaction:slashcmd:github]', error.message);
         };
     }
 };

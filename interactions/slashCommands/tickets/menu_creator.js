@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 const md5 = require('md5');
 
@@ -68,7 +67,7 @@ module.exports = {
 
             interaction.reply({ content: 'Menú creado exitosamente!', ephemeral: true });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:menucreator]'), error.message);
+            console.error('[interaction:slashcmd:ticket:menucreator]', error.message);
         }
     }
 };

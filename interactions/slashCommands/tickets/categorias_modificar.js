@@ -36,7 +36,7 @@ module.exports = {
 
             return interaction.reply({ content: 'Se ha modificado la categoría! Recuerda deberás modificar manualmente en los selectores donde lo necesites', ephemeral: true });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:catmodificar]'), error.message);
+            console.error('[interaction:slashcmd:ticket:catmodificar]', error.message);
         }
     }
 };

@@ -24,7 +24,7 @@ module.exports = {
                 }
             }
         } catch(error) {
-            console.error('event:voiceStateUpdate |', error.message);
+            console.error('[event:voiceStateUpdate]', error.message);
         }
     }
 };

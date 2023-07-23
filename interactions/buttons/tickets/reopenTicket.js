@@ -1,12 +1,11 @@
 // Load required resources =================================================================================================
 const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================
 const { clientId } = require(path.resolve('./config/bot'));
 const { staffRole } = require(path.resolve('./config/tickets'));
-const { template } = require(path.resolve('./data/json/embeds.json'));
+const { template } = require(path.resolve('./data/json/i18n/tickets.json'));
 
 // Load SQLite Helper ======================================================================================================
 const sqlite = require(path.resolve('./functions/tickets.js'));
@@ -61,7 +60,7 @@ module.exports = {
                 channelEdit.edit({ permissionOverwrites: channelPermissions });
             });
         } catch(error) {
-            console.error(color.red('[interaction:buttons:reopenticket]'), error.message);
+            console.error('[interaction:buttons:ticket:reopenticket]', error.message);
         }
     }
 };

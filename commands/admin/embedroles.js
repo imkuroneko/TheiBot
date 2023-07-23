@@ -50,6 +50,6 @@ exports.run = (client, message, args) => {
         ) ] });
 
     } catch(error) {
-        console.error('cmdPrefix:embedroles |',error.message);
+        console.error('[cmdPrefix:embedroles]', error.message);
     }
 }

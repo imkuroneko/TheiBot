@@ -13,6 +13,10 @@ module.exports = {
     // Prefijo para comandos del owner
     "prefix"     : "!",
 
+    // Color del embed (para los mensajes embeds)
+    // este es en formato hex pero sin el '#' al inicio para que discordjs lo interprete correctamente
+    "embedColor" : "cc3366",
+
     // Zona horaria para cronjobs
     "timezoneSv" : "America/Asuncion"
 }

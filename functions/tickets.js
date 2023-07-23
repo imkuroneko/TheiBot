@@ -3,7 +3,6 @@ const path = require('path');
 const SQLite = require('better-sqlite3');
 const dayjs = require('dayjs');
 const timezone = require('dayjs/plugin/timezone');
-const { color } = require('console-log-colors');
 
 // Load configuration files ================================================================================================
 const { timezoneSv } = require(path.resolve('./config/bot'));
@@ -34,7 +33,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE guild = ? AND channel = ? ");
             return (query.get(guildId, channelId).count > 0);
         } catch(error) {
-            console.error(color.red('[sqlite:isTicket]'), error.message);
+            console.error('[sqlite:isTicket]', error.message);
         }
     },
 
@@ -43,7 +42,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE user = ? AND guild = ? AND category = ? AND status = 'A' ");
             return query.get(userId, guildId, categoryId).count;
         } catch(error) {
-            console.error(color.red('[sqlite:countOpenTicketsByUser]'), error.message);
+            console.error('[sqlite:countOpenTicketsByUser]', error.message);
         }
     },
 
@@ -52,7 +51,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE guild = ? AND category = ? ");
             return parseInt(query.get(guildId, categoryId).count + 1).toString().padStart(5, '0');
         } catch(error) {
-            console.error(color.red('[sqlite:generateTicketId]'), error.message);
+            console.error('[sqlite:generateTicketId]', error.message);
         }
     },
 
@@ -61,7 +60,7 @@ module.exports = {
             const query = sql.prepare(" INSERT INTO tickets_details (ticket, guild, category, channel, user, timestamp_creation) VALUES (@i, @g, @c, @x, @u, @t); ");
             query.run({ i: ticket, g: guildId, c: categoryId, x: channelId, u: userId, t: getCurrentTimestamp() });
         } catch(error) {
-            console.error(color.red('[sqlite:createNewTicket]'), error.message);
+            console.error('[sqlite:createNewTicket]', error.message);
         }
     },
 
@@ -75,7 +74,7 @@ module.exports = {
                 category: data.category.toString()
             };
         } catch(error) {
-            console.error(color.red('[sqlite:getDataFromTicket]'), error.message);
+            console.error('[sqlite:getDataFromTicket]', error.message);
         }
     },
 
@@ -91,7 +90,7 @@ module.exports = {
             const query = sql.prepare(" UPDATE tickets_details SET status = @sts, timestamp_deletion = @tms WHERE guild = @gld AND channel = @chn; ");
             query.run({ gld: guildId, chn: channelId, sts: status, tms: timestamp });
         } catch(error) {
-            console.error(color.red('[sqlite:updateStatus]'), error.message);
+            console.error('[sqlite:updateStatus]', error.message);
         }
     },
 
@@ -100,7 +99,7 @@ module.exports = {
             const query = sql.prepare(" SELECT category, channel FROM tickets_details WHERE guild = @gld AND user = @usr AND status != 'D'; ");
             return query.all({ gld: guildId, usr: userId });
         } catch(error) {
-            console.error(color.red('[sqlite:getTicketsMemberLeft]'), error.message);
+            console.error('[sqlite:getTicketsMemberLeft]', error.message);
         }
     },
 
@@ -109,7 +108,7 @@ module.exports = {
             const query = sql.prepare(" SELECT * FROM tickets_categories ");
             return query.all();
         } catch(error) {
-            console.error(color.red('[sqlite:listCategories]'), error.message);
+            console.error('[sqlite:listCategories]', error.message);
         }
     },
 
@@ -118,7 +117,7 @@ module.exports = {
             const query = sql.prepare(" INSERT INTO tickets_categories (uid, name, category, emoji, description, limit_tickets) VALUES (@u, @n, @c, @e, @d, @l); ");
             query.run({ u: genCatUID(), n: name, c: category, e: emoji, d: description, l: limit });
         } catch(error) {
-            console.error(color.red('[sqlite:createNewCategory]'), error.message);
+            console.error('[sqlite:createNewCategory]', error.message);
         }
     },
 
@@ -127,7 +126,7 @@ module.exports = {
             const query = sql.prepare(" SELECT * FROM tickets_categories WHERE uid = ? ");
             return query.get(uid);
         } catch(error) {
-            console.error(color.red('[sqlite:readCategory]'), error.message);
+            console.error('[sqlite:readCategory]', error.message);
         }
     },
 
@@ -136,7 +135,7 @@ module.exports = {
             const query = sql.prepare(" UPDATE tickets_categories SET name = @n, description = @d, limit_tickets = @l WHERE uid = @u; ");
             query.run({ n: name, d: description, l: limit, u: uid });
         } catch(error) {
-            console.error(color.red('[sqlite:updateCategory]'), error.message);
+            console.error('[sqlite:updateCategory]', error.message);
         }
     },
 
@@ -145,7 +144,7 @@ module.exports = {
             const query = sql.prepare(" DELETE FROM tickets_categories WHERE uid = @uid; ");
             query.run({ uid: uid });
         } catch(error) {
-            console.error(color.red('[sqlite:deleteCategory]'), error.message);
+            console.error('[sqlite:deleteCategory]', error.message);
         }
     },
 
@@ -154,7 +153,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE category = ? AND status != 'D' ");
             return query.get(uid).count;
         } catch(error) {
-            console.error(color.red('[sqlite:countTicketsOnCategory]'), error.message);
+            console.error('[sqlite:countTicketsOnCategory]', error.message);
         }
     },
 
@@ -164,7 +163,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_categories ");
             return query.get().count;
         } catch(error) {
-            console.error(color.red('[sqlite:countTotalCategories]'), error.message);
+            console.error('[sqlite:countTotalCategories]', error.message);
         }
     },
 
@@ -173,7 +172,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details ");
             return query.get().count;
         } catch(error) {
-            console.error(color.red('[sqlite:countTotalTicketsGlobal]'), error.message);
+            console.error('[sqlite:countTotalTicketsGlobal]', error.message);
         }
     },
 
@@ -182,7 +181,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE status = 'A' ");
             return query.get().count;
         } catch(error) {
-            console.error(color.red('[sqlite:countTotalTicketsOpen]'), error.message);
+            console.error('[sqlite:countTotalTicketsOpen]', error.message);
         }
     },
 
@@ -191,7 +190,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE status = 'C' ");
             return query.get().count;
         } catch(error) {
-            console.error(color.red('[sqlite:countTotalTicketsClosed]'), error.message);
+            console.error('[sqlite:countTotalTicketsClosed]', error.message);
         }
     },
 
@@ -200,7 +199,7 @@ module.exports = {
             const query = sql.prepare(" SELECT count(*) as count FROM tickets_details WHERE status = 'D' ");
             return query.get().count;
         } catch(error) {
-            console.error(color.red('[sqlite:countTotalTicketsDeleted]'), error.message);
+            console.error('[sqlite:countTotalTicketsDeleted]', error.message);
         }
     },
 

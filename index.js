@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 const fs = require('fs');
 
@@ -44,7 +43,7 @@ try {
         });
     });
 } catch(error) {
-    console.error(color.red('[load:cmds]'), error.message);
+    console.error('[load:cmds]', error.message);
 }
 
 // Interactions :: SlashCommands ===========================================================================================
@@ -60,7 +59,7 @@ try {
         });
     });
 } catch(error) {
-    console.error(color.red('[load:interactions:slash]'), error.message);
+    console.error('[load:interactions:slash]', error.message);
 }
 
 // Interactions :: Buttons =================================================================================================
@@ -73,7 +72,7 @@ try {
         });
     });
 } catch(error) {
-    console.error(color.red('[load:interactions:button]'), error.message);
+    console.error('[load:interactions:button]', error.message);
 }
 
 // Interactions :: Menus ===================================================================================================
@@ -86,7 +85,7 @@ try {
         });
     });
 } catch(error) {
-    console.error(color.red('[load:interactions:menu]'), error.message);
+    console.error('[load:interactions:menu]', error.message);
 }
 
 // Handle :: Events ========================================================================================================
@@ -99,21 +98,21 @@ try {
         });
     });
 } catch(error) {
-    console.error(color.red('[load:events]'), error.message);
+    console.error('[load:events]', error.message);
 }
 
 // Define token a init bot =================================================================================================
 client.login(token).then(() => {
-    console.log(color.green('[init]'), 'Bot operativo | Inicializado en', color.magenta(`${Date.now() - client.startupTime}ms`));
+    console.log(`[init] Bot operativo | Inicializado en ${Date.now() - client.startupTime}ms`);
 }).catch((error) => {
-    console.error(color.red('[client:token]'), error.message);
+    console.error('[client:token]', error.message);
 });
 
 // Handle Error ============================================================================================================
 process.on('unhandledRejection', (error) => {
-    console.error(color.red('[process:unhandledError]'), error.message);
+    console.error('[process:unhandledError]', error.message);
 });
 
 client.on('shardError', (error) => {
-    console.error(color.red('[process:shardError]'), error.message);
+    console.error('[process:shardError]', error.message);
 });

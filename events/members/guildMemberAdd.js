@@ -4,7 +4,7 @@ const path = require('path');
 
 // Load configuration files ================================================================================================
 const { welcomeChannel, log_JoinLeft } = require(path.resolve('./config/channels'));
-const { clientId } = require(path.resolve('./config/bot'));
+const { clientId, embedColor } = require(path.resolve('./config/bot'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
             if(welcomeChannel) {
                 const sender_welcome = member.guild.channels.cache.get(welcomeChannel);
                 sender_welcome.send({ embeds: [{
-                    color: 0xcc3366,
+                    color: parseInt(embedColor, 16),
                     description:
                         `Bienvenido <@${userId}> al servidor 👋🏻 Esperamos disfrutes tu estadía en el servidor.\n\n`+
                         `**Sobre Mí:** <#637941772063866890>\n`+
@@ -38,7 +38,7 @@ module.exports = {
                 }] });
             }
         } catch(error) {
-            console.error('event:guildMemberAdd |', error.message);
+            console.error('[event:guildMemberAdd]', error.message);
         }
     }
 };

@@ -1,12 +1,11 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 const cpuStat = require('cpu-stat');
 const path = require('path');
 const os = require('os');
 
 // Load custom functions ===================================================================================================
-const { footer } = require(path.resolve('./data/json/embeds.json'));
+const { footer } = require(path.resolve('./data/json/i18n/tickets.json'));
 const helpers = require(path.resolve('./functions/helpers.js'));
 
 // Module script ===========================================================================================================
@@ -38,7 +37,7 @@ module.exports = {
                 }] });
             });
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:host]'), error.message);
+            console.error('[interaction:slashcmd:host]', error.message);
         }
     }
 };

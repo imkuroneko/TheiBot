@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
         try {
             return interaction.reply('**Nuggots for the confederation!** <:theiNuggot:1041412115728191598>');
         } catch(error) {
-            console.error(color.red('[interaction:slashcmd:nuggots]'), error.message);
+            console.error('[interaction:slashcmd:nuggots]', error.message);
         }
     }
 };

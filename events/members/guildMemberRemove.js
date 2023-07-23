@@ -21,12 +21,11 @@ module.exports = {
                 sender_log.send({ embeds: [{
                     color: 0xe35d5d,
                     title: `👋🏻 Un usuario se acaba de ir del servidor`,
-                    fields: [ { name: 'Usuario', value: user }, { name: 'User ID', value: userId } ],
-                    footer: { text: '🦄 Thei Bot / Experimental Project by KuroNeko' }
+                    fields: [ { name: 'Usuario', value: user }, { name: 'User ID', value: userId } ]
                 }] });
             }
         } catch(error) {
-            console.error('event:clientMemberRemove |', error.message);
+            console.error('[event:clientMemberRemove]', error.message);
         }
     }
 };
