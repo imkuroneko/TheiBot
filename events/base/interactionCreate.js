@@ -13,7 +13,7 @@ module.exports = {
 
                     await command.execute(interaction);
                 } catch(error) {
-                    console.error('event:interactionCreate:command', error.message);
+                    console.error('[event:base:interactionCreate:command]', error.message);
                     return interaction.reply({ content: 'oops! hubo un error al ejecutar el evento slash 😣', ephemeral: true });
                 }
             }
@@ -28,7 +28,7 @@ module.exports = {
 
                     await menuAction.execute(interaction);
                 } catch(error) {
-                    console.error('event:interactionCreate:select', error.message);
+                    console.error('[event:base:interactionCreate:select]', error.message);
                     return interaction.reply({ content: 'oops! hubo un error al ejecutar el evento menu 😣', ephemeral: true });
                 }
             }
@@ -43,7 +43,7 @@ module.exports = {
 
                     await btnAction.execute(interaction);
                 } catch(error) {
-                    console.error('event:interactionCreate:button', error.message);
+                    console.error('[event:base:interactionCreate:button]', error.message);
                     return interaction.reply({ content: 'oops! hubo un error al ejecutar el evento button 😣', ephemeral: true });
                 }
             }

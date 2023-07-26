@@ -1,7 +1,6 @@
 // Load required resources =================================================================================================
 const { Events, ActivityType } = require('discord.js');
 const path = require('path');
-const fs = require('fs');
 const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
@@ -41,7 +40,7 @@ module.exports = {
                 }, 60000);
             }
         } catch(error) {
-            console.error('[event:ready:setPresence]', error.message);
+            console.error('[event:base:ready:setPresence]', error.message);
         }
 
         // Bot presence (voice channel)
@@ -59,20 +58,7 @@ module.exports = {
                 }
             }
         } catch(error) {
-            console.error('[event:ready:voicePresence]', error.message);
-        }
-
-        // Crons
-        try {
-            const cronsFiles = fs.readdirSync(path.resolve('./crons')).filter(file => file.endsWith('.js'));
-            if(cronsFiles.length) {
-                for(file of cronsFiles) {
-                    const cron = require(path.resolve(`./crons/${file}`))(client);
-                    cron.start()
-                }
-            }
-        } catch(error) {
-            console.error('[event:ready:loadCrons]', error.message);
+            console.error('[event:base:ready:voicePresence]', error.message);
         }
     }
 };

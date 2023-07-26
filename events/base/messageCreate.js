@@ -27,7 +27,7 @@ module.exports = {
 
             cmd.run(message.client, message, args);
         } catch(error) {
-            console.error('[event:messageCreate]', error.message);
+            console.error('[event:base:messageCreate]', error.message);
         }
     }
 }
