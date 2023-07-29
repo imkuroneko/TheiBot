@@ -18,7 +18,8 @@ module.exports = {
     "embedColor" : "cc3366",
 
     // Se envía con imagen el mensaje de bienvenida?
-    "welcomeHasImage" : false,
+    "welcomeSendImage" : true,
+    "welcomeSendEmbed" : true,
 
     // Zona horaria para cronjobs
     "timezoneSv" : "America/Asuncion"

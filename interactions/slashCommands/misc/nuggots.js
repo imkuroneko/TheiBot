@@ -9,7 +9,7 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         try {
-            return interaction.reply('**Nuggots for the confederation!** <:theiNuggot:1041412115728191598>');
+            return interaction.reply('**Nuggots for the confederation!** 🍗');
         } catch(error) {
             console.error('[interaction:slashcmd:nuggots]', error.message);
         }

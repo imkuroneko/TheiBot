@@ -6,7 +6,7 @@ const wait = require('node:timers/promises').setTimeout;
 // Load configuration files ================================================================================================
 const { clientId } = require(path.resolve('./config/bot'));
 const { staffRole } = require(path.resolve('./config/tickets'));
-const { template, footer } = require(path.resolve('./data/json/i18n/tickets.json'));
+const { template, footer } = require(path.resolve('./data/i18n/tickets'));
 
 // Load SQLite Helper ======================================================================================================
 const sqlite = require(path.resolve('./functions/tickets.js'));

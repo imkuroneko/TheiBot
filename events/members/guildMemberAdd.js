@@ -5,7 +5,8 @@ const path = require('path');
 
 // Load configuration files ================================================================================================
 const { welcomeChannel, log_JoinLeft } = require(path.resolve('./config/channels'));
-const { clientId, welcomeHasImage, embedColor } = require(path.resolve('./config/bot'));
+const { clientId, welcomeSendImage, welcomeSendEmbed, embedColor } = require(path.resolve('./config/bot'));
+const { memberJoinPublic, memberJoinLog } = require(path.resolve('./data/i18n/members'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -22,8 +23,11 @@ module.exports = {
                 sender_log.send({
                     embeds: [{
                         color: 0x89db4f,
-                        title: `👋🏻 Un usuario se acaba de unir al servidor`,
-                        fields: [ { name: 'Usuario', value: userTag }, { name: 'User ID', value: userId } ]
+                        title: memberJoinLog.title,
+                        fields: [
+                            { name: 'Usuario', value: userTag },
+                            { name: 'User ID', value: userId }
+                        ]
                     }]
                 });
             } catch(error) {
@@ -35,8 +39,10 @@ module.exports = {
             try {
                 const sender_welcome = member.guild.channels.cache.get(welcomeChannel);
 
-                let filesAttach = [];
-                if(welcomeHasImage) {
+                let attachFiles = [];
+                let attachEmbed = [];
+
+                if(welcomeSendImage) {
                     // Crear lienzo
                     const canvas = Canvas.createCanvas(700, 250);
                     const ctx = canvas.getContext('2d');
@@ -77,20 +83,20 @@ module.exports = {
                     // Adjuntar contenido multimedia
                     const mediaAttachment = new AttachmentBuilder(canvas.toBuffer(), 'img.png')
 
-                    filesAttach =[ mediaAttachment ];
+                    attachFiles =[ mediaAttachment ];
                 }
 
-                sender_welcome.send({
-                    files: filesAttach,
-                    embeds: [{
+                if(welcomeSendEmbed) {
+                    attachEmbed = [{
                         color: parseInt(embedColor, 16),
-                        description:
-                            `Bienvenido <@${userId}> al servidor 👋🏻 Esperamos disfrutes tu estadía en el servidor.\n\n`+
-                            `**Sobre Mí:** <#637941772063866890>\n`+
-                            `**Reglas del servidor:** <#751891992178327573>\n`+
-                            `**Obtén roles geniales:** <#938245623495393300>`
-                    }]
-                });
+                        title: memberJoinPublic.title,
+                        description: memberJoinPublic.description
+                    }];
+                }
+
+                if(!welcomeSendImage && !welcomeSendEmbed) { return; }
+
+                sender_welcome.send({ files: attachFiles, embeds: attachEmbed });
             } catch(error) {
                 console.error('[event:guildMemberAdd:welcome]', error.message);
             }

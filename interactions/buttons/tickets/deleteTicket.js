@@ -4,7 +4,7 @@ const wait = require('node:timers/promises').setTimeout;
 
 // Load configuration files ================================================================================================
 const { secDelTicket } = require(path.resolve('./config/tickets'));
-const { template } = require(path.resolve('./data/json/i18n/tickets.json'));
+const { template } = require(path.resolve('./data/i18n/tickets'));
 
 // Load SQLite Helper ======================================================================================================
 const sqlite = require(path.resolve('./functions/tickets.js'));

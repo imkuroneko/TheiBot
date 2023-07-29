@@ -1,6 +1,5 @@
 // Load required resources =================================================================================================
 const { SlashCommandBuilder } = require('discord.js');
-const { color } = require('console-log-colors');
 const path = require('path');
 
 // Load configuration files ================================================================================================

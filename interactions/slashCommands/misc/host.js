@@ -5,7 +5,7 @@ const path = require('path');
 const os = require('os');
 
 // Load custom functions ===================================================================================================
-const { footer } = require(path.resolve('./data/json/i18n/tickets.json'));
+const { footer } = require(path.resolve('./data/i18n/tickets'));
 const helpers = require(path.resolve('./functions/helpers.js'));
 
 // Module script ===========================================================================================================

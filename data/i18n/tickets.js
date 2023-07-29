@@ -1,7 +1,7 @@
-{
+module.exports = {
     "footer" : {
         "url" : "https://kuroneko.im",
-        "text" : "🦄 by kuroneko | Todos los derechos reservados"
+        "text" : "🦄 by kuroneko"
     },
 
     "template" : {
@@ -31,5 +31,4 @@
             "description" : "Este ticket será eliminado en {seconds} segundos."
         }
     }
-
 }
