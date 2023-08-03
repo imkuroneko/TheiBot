@@ -54,7 +54,24 @@ module.exports = {
                     ctx.drawImage(background, 0, 0);
 
                     // Imagen de perfil
-                    const pfp = await Canvas.loadImage((member.user.avatarURL({ format: 'png', size: 128 }).replace('webp', 'png'))); // it cannot recover png correctly
+                    let avatarUrl = member.user.displayAvatarURL({ format: 'png', size: 128 });
+                    avatarUrl = avatarUrl.replace('gif', 'png');
+                    avatarUrl = avatarUrl.replace('webp', 'png');
+                    const pfp = await Canvas.loadImage(avatarUrl); // it cannot recover png correctly
+
+                    // Resize a la imagen de perfil en caso de ser mayor a 128px
+                    if (pfp.width > 128 || pfp.height > 128) {
+                        const ratio = Math.min(128 / pfp.width, 128 / pfp.height);
+                        const newWidth = pfp.width * ratio;
+                        const newHeight = pfp.height * ratio;
+
+                        const resizedCanvas = Canvas.createCanvas(newWidth, newHeight);
+                        const resizedCtx = resizedCanvas.getContext('2d');
+                        resizedCtx.drawImage(pfp, 0, 0, newWidth, newHeight);
+
+                        pfp = resizedCanvas;
+                    }
+
                     const radius = pfp.width > pfp.height ? pfp.height / 2 : pfp.width / 2;
                     const centerX = canvas.width / 2;
                     const centerY = 25 + radius;
