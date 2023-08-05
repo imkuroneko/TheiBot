@@ -2,9 +2,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const path = require('path');
 
-// Load configuration files ================================================================================================
-const { ownerId }  = require(path.resolve('./config/bot'));
-
 // Module script ===========================================================================================================
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,10 +15,6 @@ module.exports = {
 
             if(!embed) {
                 return interaction.reply({ content: '🚨 embed no válido', ephemeral: true });
-            }
-
-            if(interaction.user.id != ownerId) {
-                return interaction.reply({ content: 'No tienes permiso para utilizar este comando hooman...', ephemeral: true });
             }
 
             if(!(isJsonString(embed))) {
