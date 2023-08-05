@@ -1,7 +1,7 @@
 module.exports = {
     apps : [{
         name      : "TheiBot",
-        version   : "3.2.0",
+        version   : "3.2.2",
 
         script    : "./index.js",
         exec_mode : "fork",

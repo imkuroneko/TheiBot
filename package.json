@@ -1,6 +1,6 @@
 {
   "name": "theibot",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "description": "Bot utilitario para Discord",
   "main": "index.js",
   "scripts": {
