@@ -5,7 +5,6 @@ const path = require('path');
 const os = require('os');
 
 // Load custom functions ===================================================================================================
-const { footer } = require(path.resolve('./data/i18n/tickets'));
 const helpers = require(path.resolve('./functions/helpers.js'));
 
 // Module script ===========================================================================================================
@@ -33,7 +32,6 @@ module.exports = {
                     `🧮 Consumo RAM   ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}Mb / ${(os.totalmem() / 1024 / 1024).toFixed(2)}Mb \n`+
                     `🤖 Consumo CPU   ${percent.toFixed(2)}%\n`+
                     "```",
-                    footer: footer
                 }] });
             });
         } catch(error) {
