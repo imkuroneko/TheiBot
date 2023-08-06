@@ -8,8 +8,6 @@
     "build": "npm i"
   },
   "keywords": [
-    "tickettool",
-    "ticket",
     "discordbot",
     "discord",
     "discord.js",
