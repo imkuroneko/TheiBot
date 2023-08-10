@@ -75,19 +75,6 @@ try {
     console.error('[load:interactions:button]', error.message);
 }
 
-// Interactions :: Menus ===================================================================================================
-try {
-    client.interactionsSelectMenu = new Collection();
-    var pathFiles = './interactions/selectMenu';
-    fs.readdirSync(pathFiles).forEach(folder => {
-        fs.readdirSync(`${pathFiles}/${folder}`).filter(file => file.endsWith('.js')).forEach((file) => {
-            client.interactionsSelectMenu.set(file.split(".")[0], require(path.resolve(path.join(`${pathFiles}/${folder}`, file))));
-        });
-    });
-} catch(error) {
-    console.error('[load:interactions:menu]', error.message);
-}
-
 // Handle :: Events ========================================================================================================
 try {
     var pathFiles = './events';
