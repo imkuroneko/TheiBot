@@ -26,15 +26,16 @@
   "dependencies": {
     "@discordjs/rest": "^1.7.1",
     "@discordjs/voice": "^0.16.0",
-    "axios": "^1.4.0",
-    "better-sqlite3": "^8.5.0",
+    "axios": "^1.5.1",
+    "better-sqlite3": "^8.7.0",
     "canvas": "^2.11.2",
     "cpu-stat": "^2.0.1",
-    "cron": "^2.4.0",
-    "dayjs": "^1.11.9",
-    "discord.js": "^14.12.1",
+    "cron": "^2.4.4",
+    "dayjs": "^1.11.10",
+    "discord.js": "^14.13.0",
     "fs": "^0.0.1-security",
     "md5": "^2.3.0",
-    "os": "^0.1.2"
+    "os": "^0.1.2",
+    "systeminformation": "^5.21.11"
   }
 }
