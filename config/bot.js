@@ -1,8 +1,8 @@
 module.exports = {
 
     // Parámetros del bot
-    "token"      : "*****************************************",
-    "clientId"   : "815807932653633547",
+    "token"      : "MTAxMjg4MDk2NDAwMDY3Nzk1OA.GpnO6j.Uex8i6DHVrGTZcZTm4wf8jcpRqG4AA9Wb2s9oM",
+    "clientId"   : "1012880964000677958",
 
     // Guild donde funcionará
     "guildId"    : "123456789123456789",
