@@ -1,5 +1,4 @@
 module.exports = {
-
     // Parámetros del bot
     "token"      : "*****************************************",
     "clientId"   : "815807932653633547",

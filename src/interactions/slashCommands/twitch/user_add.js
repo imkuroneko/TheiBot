@@ -3,8 +3,9 @@ const { SlashCommandBuilder, ChannelType } = require('discord.js');
 const path = require('path');
 
 // Load custom functions ===================================================================================================
-const helper = require(path.resolve('./functions/helpers'));
-const twitch = require(path.resolve('./functions/twitch'));
+const helper = require(path.resolve('./src/functions/helpers'));
+const { getAuth, getUserInfoByUsername } = require(path.resolve('./src/services/twitch'));
+const { Streamer } = require(path.resolve('./src/database/models'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -25,19 +26,20 @@ module.exports = {
                 return interaction.reply({ content: '❌ Hooman, eso no es un color válido...', ephemeral: true });
             }
 
-            const twToken = (await twitch.getAuth()).access_token;
+            const authData = await getAuth();
+            if(!authData) { return interaction.reply({ content: '❌ No se pudo obtener el token de Twitch.', ephemeral: true }); }
 
-            const twitchData = await twitch.getUserInfoByUsername(twToken, tw_canal);
+            const twitchData = await getUserInfoByUsername(authData.access_token, tw_canal);
 
             if(typeof twitchData == 'undefined') {
                 return interaction.reply({ content: '❌ Hooman, no existe ese usuario en Twitch...', ephemeral: true });
             }
 
-            if(typeof twitch.getStreamerById(twitchData.id) != 'undefined') {
+            if(await Streamer.findOne({ where: { twitch_account_id: twitchData.id } }) !== null) {
                 return interaction.reply({ content: '❌ Hooman, ya está registrado ese streamer en mi base de datos...', ephemeral: true });
             }
 
-            twitch.registerTwitchUser(twitchData.id, twitchData.login, color_hex, ds_canal);
+            await Streamer.create({ twitch_account_id: twitchData.id, twitch_account_name: twitchData.login, discord_embed_color: color_hex, discord_channel_id: ds_canal });
 
             return interaction.reply({ content: '🙆🏻‍♀️ He registrado al streamer en mi base de datos hooman...', ephemeral: true });
         } catch(error) {

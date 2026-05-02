@@ -12,7 +12,7 @@ module.exports = {
     name: Events.VoiceStateUpdate,
     async execute(oldState, newState) {
         try {
-            if((newState.channelID === null || typeof newState.channelID == 'undefined') && newState.id == config.clientId) {
+            if(newState.channelId == null && newState.member.id == config.clientId) {
                 if(channels.presenceVoice) {
                     const voiceChannelReconn = newState.guild.channels.cache.get(channels.presenceVoice);
                     joinVoiceChannel({

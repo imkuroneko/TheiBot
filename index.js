@@ -36,7 +36,7 @@ client.startupTime = Date.now();
 // Admin Commands (with prefix) ============================================================================================
 try {
     client.commandsPrefix = new Collection();
-    var pathFiles = './commands';
+    const pathFiles = './src/commands';
     fs.readdirSync(pathFiles).forEach(folder => {
         fs.readdirSync(`${pathFiles}/${folder}`).filter(file => file.endsWith('.js')).forEach((file) => {
             client.commandsPrefix.set(file.split(".")[0], require(path.resolve(path.join(`${pathFiles}/${folder}`, file))));
@@ -50,7 +50,7 @@ try {
 try {
     client.slashRegister = [];
     client.interactionsSlash = new Collection();
-    var pathFiles = './interactions/slashCommands';
+    const pathFiles = './src/interactions/slashCommands';
     fs.readdirSync(pathFiles).forEach(folder => {
         fs.readdirSync(`${pathFiles}/${folder}`).filter(file => file.endsWith('.js')).forEach((file) => {
             var command = require(path.resolve(path.join(`${pathFiles}/${folder}`, file)));
@@ -65,7 +65,7 @@ try {
 // Interactions :: Buttons =================================================================================================
 try {
     client.interactionsButtons = new Collection();
-    var pathFiles = './interactions/buttons';
+    const pathFiles = './src/interactions/buttons';
     fs.readdirSync(pathFiles).forEach(folder => {
         fs.readdirSync(`${pathFiles}/${folder}`).filter(file => file.endsWith('.js')).forEach((file) => {
             client.interactionsButtons.set(file.split(".")[0], require(path.resolve(path.join(`${pathFiles}/${folder}`, file))));
@@ -77,15 +77,15 @@ try {
 
 // Handle :: Events ========================================================================================================
 try {
-    var pathFiles = './events';
+    const pathFiles = './src/events';
     fs.readdirSync(pathFiles).forEach(folder => {
         fs.readdirSync(`${pathFiles}/${folder}`).filter(file => file.endsWith('.js')).forEach((file) => {
             const event = require(path.resolve(path.join(`${pathFiles}/${folder}`, file)));
-            client.on(event.name, (...args) => event.execute(...args));    
+            client.on(event.name, (...args) => event.execute(...args));
         });
     });
 } catch(error) {
-    console.error('[load:events]', error.message);
+    console.error('[load:events]', error);
 }
 
 // Define token a init bot =================================================================================================

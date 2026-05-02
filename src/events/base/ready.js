@@ -1,7 +1,7 @@
 // Load required resources =================================================================================================
 const { Events, ActivityType } = require('discord.js');
 const path = require('path');
-const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
+const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
 const { presenceVoice } = require(path.resolve('./config/channels'));
@@ -24,6 +24,7 @@ module.exports = {
                 setInterval(() => {
                     i = (i + 1) % activity.length;
 
+                    let type;
                     switch(activity[i].type.toLowerCase()) {
                         case 'competing': type = ActivityType.Competing; break;
                         case 'listening': type = ActivityType.Listening; break;
@@ -47,14 +48,28 @@ module.exports = {
         try {
             if((typeof presenceVoice != 'undefined') && (presenceVoice.length > 0)) {
                 const voiceChannel = client.channels.cache.get(presenceVoice);
-
-                var conn = connectToVoice(voiceChannel);
-                conn.on(VoiceConnectionStatus.Disconnected, async (oldState, newState) => {
-                    conn = connectToVoice(voiceChannel);
-                });
+                connectToVoice(voiceChannel);
 
                 function connectToVoice(chn) {
-                    return joinVoiceChannel({ channelId: chn.id, guildId: chn.guild.id, adapterCreator: chn.guild.voiceAdapterCreator, selfDeaf: false });
+                    const conn = joinVoiceChannel({ channelId: chn.id, guildId: chn.guild.id, adapterCreator: chn.guild.voiceAdapterCreator, selfDeaf: false });
+
+                    conn.on(VoiceConnectionStatus.Disconnected, async () => {
+                        try {
+                            // Esperar hasta 5s a que Discord reconecte solo (ej: corte de red breve)
+                            await Promise.race([
+                                entersState(conn, VoiceConnectionStatus.Signalling, 5_000),
+                                entersState(conn, VoiceConnectionStatus.Connecting, 5_000),
+                            ]);
+                        } catch {
+                            // No se recuperó → destruir y reconectar desde cero
+                            if(conn.state.status !== VoiceConnectionStatus.Destroyed) {
+                                conn.destroy();
+                            }
+                            connectToVoice(chn);
+                        }
+                    });
+
+                    return conn;
                 }
             }
         } catch(error) {

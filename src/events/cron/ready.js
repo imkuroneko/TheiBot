@@ -9,10 +9,10 @@ module.exports = {
     execute(client) {
         // Crons
         try {
-            const cronsFiles = fs.readdirSync(path.resolve('./crons')).filter(file => file.endsWith('.js'));
+            const cronsFiles = fs.readdirSync(path.resolve('./src/crons')).filter(file => file.endsWith('.js'));
             if(cronsFiles.length) {
                 for(file of cronsFiles) {
-                    const cron = require(path.resolve(`./crons/${file}`))(client);
+                    const cron = require(path.resolve(`./src/crons/${file}`))(client);
                     cron.start();
                 }
             }

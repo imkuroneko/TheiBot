@@ -2,8 +2,8 @@
 const { SlashCommandBuilder, ChannelType } = require('discord.js');
 const path = require('path');
 
-// Load custom functions ===================================================================================================
-const twitch = require(path.resolve('./functions/twitch'));
+// Load models =============================================================================================================
+const { Streamer } = require(path.resolve('./src/database/models'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -16,11 +16,11 @@ module.exports = {
         try {
             const tw_canal = (interaction.options.getString('tw_canal').replace(/[^\w]/g, ""));
 
-            if(typeof twitch.getStreamerByUsername(tw_canal) == 'undefined') {
+            if(await Streamer.findOne({ where: { twitch_account_name: tw_canal } }) === null) {
                 return interaction.reply({ content: '❌ Hooman, ese streamer no se encuentra en mi base de datos...', ephemeral: true });
             }
 
-            twitch.deleteTwitchAccount(tw_canal);
+            await Streamer.destroy({ where: { twitch_account_name: tw_canal } });
 
             return interaction.reply({ content: '🙆🏻‍♀️ He eliminado al streamer en mi base de datos hooman...', ephemeral: true });
         } catch(error) {

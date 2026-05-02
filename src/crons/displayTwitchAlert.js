@@ -8,31 +8,38 @@ const { timezoneSv } = require(path.resolve('./config/bot'));
 const { tagAlert } = require(path.resolve('./config/twitch'));
 
 // Load custom functions ===================================================================================================
-const twitch = require(path.resolve('./functions/twitch'));
+const { getAuth, getUserInfoById, getStreamInfo } = require(path.resolve('./src/services/twitch'));
+const { Streamer, StreamTracker } = require(path.resolve('./src/database/models'));
+const dayjs = require('dayjs');
 
 // Module script ===========================================================================================================
 const script = (client) => new cron.CronJob(
     '*/15 * * * * *',
     async function() {
         try {
-            const twAccounts = twitch.getStreamers();
+            const twAccounts = await Streamer.findAll();
 
-            const twToken = (await twitch.getAuth()).access_token;
+            const authData = await getAuth();
+            if(!authData) { return; }
+            const twToken = authData.access_token;
 
-            twAccounts.forEach(async (account) => {
-                // recuperar info de la cuenta
-                const userInfo = await twitch.getUserInfoById(twToken, account.twitch_account_id);
+            for(const account of twAccounts) {
+                try {
+                    // recuperar info de la cuenta
+                    const userInfo = await getUserInfoById(twToken, account.twitch_account_id);
 
-                // actualizar el nombre en la base de datos
-                twitch.updateTwitchName(userInfo.id, userInfo.login);
+                    // actualizar el nombre en la base de datos
+                    await Streamer.update({ twitch_account_name: userInfo.login }, { where: { twitch_account_id: userInfo.id } });
 
-                // recuperar datos del stream
-                const streamInfo = await twitch.getStreamInfo(twToken, account.twitch_account_id);
+                    // recuperar datos del stream
+                    const streamInfo = await getStreamInfo(twToken, account.twitch_account_id);
 
-                if(typeof streamInfo != 'undefined') { // stream ON
-                    client.channels.fetch(account.discord_channel_id).then((channel) => {
-                        if(twitch.getCurrentStream(streamInfo.user_id, streamInfo.id) == 0) {
-                            alert_tag = '';
+                    if(streamInfo != null) { // stream ON
+                        const channel = await client.channels.fetch(account.discord_channel_id);
+                        const streamCount = await StreamTracker.count({ where: { twitch_account_id: streamInfo.user_id, stream_id: streamInfo.id } });
+
+                        if(streamCount == 0) {
+                            let alert_tag = '';
                             if(tagAlert.length > 0) {
                                 if(tagAlert == 'everyone') {
                                     alert_tag = '@everyone';
@@ -63,11 +70,13 @@ const script = (client) => new cron.CronJob(
                             });
 
                             // registrar este stream para evitar spam
-                            twitch.registerCurrentStream(streamInfo.user_id, streamInfo.id);
+                            await StreamTracker.upsert({ twitch_account_id: streamInfo.user_id, stream_id: streamInfo.id, last_update: dayjs().format('YYYY-MM-DD HH:mm:ss') });
                         }
-                    });
+                    }
+                } catch(accountError) {
+                    console.error('cronjob:twitchMonitor:account', accountError.message);
                 }
-            });
+            }
         } catch(error) {
             console.error('cronjob:twitchMonitor', error);
         };

@@ -57,7 +57,7 @@ module.exports = {
                     let avatarUrl = member.user.displayAvatarURL({ format: 'png', size: 128 });
                     avatarUrl = avatarUrl.replace('gif', 'png');
                     avatarUrl = avatarUrl.replace('webp', 'png');
-                    const pfp = await Canvas.loadImage(avatarUrl); // it cannot recover png correctly
+                    let pfp = await Canvas.loadImage(avatarUrl);
 
                     // Resize a la imagen de perfil en caso de ser mayor a 128px
                     if (pfp.width > 128 || pfp.height > 128) {
