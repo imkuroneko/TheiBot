@@ -37,8 +37,8 @@ module.exports = {
                                 { inline: true, name: '🟢 NodeJS', value: "```"+process.version+"```" },
                                 { inline: true, name: '🟣 DiscordJS', value: "```v"+djsversion+"```" },
                                 { inline: true, name: '📶 Latencia API', value: "```"+ping+"ms```" },
-                                { inline: true, name: '⌚ Uptime', value: "```"+formatUptime(interaction.client.uptime)+"```" },
-                                { inline: true, name: '🧮 Memoria', value: "```"+((os.totalmem() - os.freemem()) / 1024 / 1024).toFixed(2)+" de "+(os.totalmem() / 1024 / 1024).toFixed(2)+"Mb```" },
+                                { inline: true, name: '⌚ Uptime', value: "```"+formatUptime(interaction.client.uptime / 1000)+"```" },
+                                { inline: true, name: '🧮 Memoria', value: "```"+(process.memoryUsage().rss / 1024 / 1024).toFixed(2)+"Mb```" },
                             ]
                         },
                     ]
@@ -50,11 +50,11 @@ module.exports = {
     }
 };
 
-function formatUptime(uptimeInSeconds) {
-    const days = Math.floor(uptimeInSeconds / 86400);
-    const hours = Math.floor((uptimeInSeconds % 86400) / 3600);
-    const minutes = Math.floor((uptimeInSeconds % 3600) / 60);
-    const seconds = Math.floor(uptimeInSeconds % 60);
+function formatUptime(time) {
+    const days = Math.floor(time / 86400);
+    const hours = Math.floor((time % 86400) / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = Math.floor(time % 60);
 
     const formattedUptime = [];
     if(days > 0) { formattedUptime.push(`${days}d`); }
