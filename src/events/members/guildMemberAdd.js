@@ -4,9 +4,9 @@ const Canvas = require('canvas');
 const path = require('path');
 
 // Load configuration files ================================================================================================
-const { welcomeChannel, log_JoinLeft } = require(path.resolve('./config/channels'));
 const { clientId, welcomeSendImage, welcomeSendEmbed, embedColor } = require(path.resolve('./config/bot'));
 const { memberJoinPublic, memberJoinLog } = require(path.resolve('./data/i18n/members'));
+const { GuildMemberLog, LogSetting } = require(path.resolve('./src/database/models'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -16,17 +16,34 @@ module.exports = {
 
         const userTag = member.user.tag;
         const userId  = member.user.id;
+        const joinedAt = Date.now();
 
-        if(log_JoinLeft) {
+        const logEntrance = await LogSetting.findOne({ where: { setting_name: 'log_user_entrance' } });
+
+        if(logEntrance?.setting_enabled && logEntrance?.setting_channel) {
+            // Registrar acceso en base de datos
             try {
-                const sender_log = member.guild.channels.cache.get(log_JoinLeft);
+                await GuildMemberLog.create({
+                    guild_id:  member.guild.id,
+                    user_id:   userId,
+                    username:  userTag,
+                    joined_at: joinedAt,
+                    left_at:   null,
+                });
+            } catch(error) {
+                console.error('[event:guildMemberAdd:db]', error.message);
+            }
+
+            try {
+                const sender_log = member.guild.channels.cache.get(logEntrance.setting_channel);
                 sender_log.send({
                     embeds: [{
                         color: 0x89db4f,
                         title: memberJoinLog.title,
                         fields: [
-                            { name: 'Usuario', value: userTag },
-                            { name: 'User ID', value: userId }
+                            { name: 'Usuario', value: "`"+userTag+"`", inline: true },
+                            { name: 'User ID', value: "`"+userId+"`", inline: true },
+                            { name: 'Fecha de ingreso', value: `<t:${Math.floor(joinedAt / 1000)}:F>`, inline: false },
                         ]
                     }]
                 });
@@ -35,9 +52,10 @@ module.exports = {
             }
         }
 
-        if(welcomeChannel) {
+        const welcomeSetting = await LogSetting.findOne({ where: { setting_name: 'welcome_channel' } });
+        if(welcomeSetting?.setting_enabled && welcomeSetting?.setting_channel) {
             try {
-                const sender_welcome = member.guild.channels.cache.get(welcomeChannel);
+                const sender_welcome = member.guild.channels.cache.get(welcomeSetting.setting_channel);
 
                 let attachFiles = [];
                 let attachEmbed = [];

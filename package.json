@@ -1,6 +1,6 @@
 {
   "name": "theibot",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "Bot utilitario para Discord",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "dependencies": {
     "@discordjs/rest": "^2.6.1",
     "@discordjs/voice": "^0.19.2",
-    "axios": "^1.15.2",
+    "axios": "^1.16.0",
     "canvas": "^3.2.3",
     "cpu-stat": "^2.0.1",
     "cron": "^4.4.0",

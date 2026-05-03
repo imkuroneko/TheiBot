@@ -4,13 +4,13 @@ const path = require('path');
 const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
-const { presenceVoice } = require(path.resolve('./config/channels'));
+const { LogSetting } = require(path.resolve('./src/database/models'));
 const activity = require(path.resolve('./data/json/misc/activity.json'));
 
 // Module script ===========================================================================================================
 module.exports = {
     name: Events.ClientReady,
-    execute(client) {
+    async execute(client) {
 
         // Bot presence (status)
         try {
@@ -46,8 +46,9 @@ module.exports = {
 
         // Bot presence (voice channel)
         try {
-            if((typeof presenceVoice != 'undefined') && (presenceVoice.length > 0)) {
-                const voiceChannel = client.channels.cache.get(presenceVoice);
+            const voicePresence = await LogSetting.findOne({ where: { setting_name: 'voice_presence' } });
+            if(voicePresence?.setting_enabled && voicePresence?.setting_channel) {
+                const voiceChannel = client.channels.cache.get(voicePresence.setting_channel);
                 connectToVoice(voiceChannel);
 
                 function connectToVoice(chn) {

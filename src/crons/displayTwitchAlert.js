@@ -5,7 +5,6 @@ const cron = require('cron');
 
 // Load configuration files ================================================================================================
 const { timezoneSv } = require(path.resolve('./config/bot'));
-const { tagAlert } = require(path.resolve('./config/twitch'));
 
 // Load custom functions ===================================================================================================
 const { getAuth, getUserInfoById, getStreamInfo } = require(path.resolve('./src/services/twitch'));
@@ -40,12 +39,8 @@ const script = (client) => new cron.CronJob(
 
                         if(streamCount == 0) {
                             let alert_tag = '';
-                            if(tagAlert.length > 0) {
-                                if(tagAlert == 'everyone') {
-                                    alert_tag = '@everyone';
-                                } else {
-                                    alert_tag = `<@&${tagAlert}>`;
-                                }
+                            if(account.discord_mention_role_id) {
+                                alert_tag = `<@&${account.discord_mention_role_id}>`;
                             }
 
                             // enviar el embed

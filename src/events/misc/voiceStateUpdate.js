@@ -4,8 +4,8 @@ const path = require('path');
 const { joinVoiceChannel } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
-const channels = require(path.resolve('./config/channels'));
 const config = require(path.resolve('./config/bot'));
+const { LogSetting } = require(path.resolve('./src/database/models'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -13,8 +13,9 @@ module.exports = {
     async execute(oldState, newState) {
         try {
             if(newState.channelId == null && newState.member.id == config.clientId) {
-                if(channels.presenceVoice) {
-                    const voiceChannelReconn = newState.guild.channels.cache.get(channels.presenceVoice);
+                const logVoice = await LogSetting.findOne({ where: { setting_name: 'voice_richpresence' } });
+                if(logVoice?.setting_enabled && logVoice?.setting_channel) {
+                    const voiceChannelReconn = newState.guild.channels.cache.get(logVoice.setting_channel);
                     joinVoiceChannel({
                         channelId: voiceChannelReconn.id,
                         guildId: voiceChannelReconn.guild.id,

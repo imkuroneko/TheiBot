@@ -10,11 +10,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('twitchdel')
         .setDescription('Eliminar un canal de Twitch')
-        .addStringOption(option => option.setName('tw_canal').setDescription('Canal de twitch').setRequired(true).setMinLength(1).setMaxLength(25))
+        .addStringOption(option => option.setName('CanalDeTwitch').setDescription('El usuario de Twitch').setRequired(true).setMinLength(1).setMaxLength(25))
         .setDMPermission(false),
     async execute(interaction) {
         try {
-            const tw_canal = (interaction.options.getString('tw_canal').replace(/[^\w]/g, ""));
+            const tw_canal = (interaction.options.getString('CanalDeTwitch').replace(/[^\w]/g, ""));
 
             if(await Streamer.findOne({ where: { twitch_account_name: tw_canal } }) === null) {
                 return interaction.reply({ content: '❌ Hooman, ese streamer no se encuentra en mi base de datos...', ephemeral: true });
