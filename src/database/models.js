@@ -48,14 +48,13 @@ const LogSetting = sequelize.define('log_settings', {
 
 // Seed ====================================================================================================================
 const LOG_SETTINGS_SEED = [
-    { setting_name: 'log_user_entrance',   setting_description: 'Log de entrada de miembros'   },
-    { setting_name: 'log_user_exit',       setting_description: 'Log de salida de miembros'     },
-    { setting_name: 'voice_richpresence',  setting_description: 'Log de actividad de voz'       },
-    { setting_name: 'log_messages_send',   setting_description: 'Log de mensajes enviados'      },
-    { setting_name: 'log_messages_edit',   setting_description: 'Log de mensajes editados'      },
-    { setting_name: 'log_messages_delete', setting_description: 'Log de mensajes eliminados'    },
-    { setting_name: 'welcome_channel',     setting_description: 'Canal de bienvenida'            },
-    { setting_name: 'voice_presence',      setting_description: 'Canal de voz del bot'           },
+    { setting_name: 'log_user_entrance',   setting_description: 'Log de entrada de miembros' },
+    { setting_name: 'log_user_exit',       setting_description: 'Log de salida de miembros'  },
+    { setting_name: 'log_messages_send',   setting_description: 'Log de mensajes enviados'   },
+    { setting_name: 'log_messages_edit',   setting_description: 'Log de mensajes editados'   },
+    { setting_name: 'log_messages_delete', setting_description: 'Log de mensajes eliminados' },
+    { setting_name: 'welcome_channel',     setting_description: 'Canal de bienvenida'        },
+    { setting_name: 'voice_presence',      setting_description: 'Canal de voz del bot'       },
 ];
 
 async function seedLogSettings() {

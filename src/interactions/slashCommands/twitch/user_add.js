@@ -12,17 +12,17 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('twitchadd')
         .setDescription('Registrar canal de Twitch')
-        .addStringOption(option => option.setName('CanalDeTwitch').setDescription('El usuario de Twitch').setRequired(true).setMinLength(1).setMaxLength(25))
-        .addChannelOption(option => option.setName('CanalDeDiscord').setDescription('Canal para los anuncios').setRequired(true).addChannelTypes(ChannelType.GuildText).addChannelTypes(ChannelType.GuildAnnouncement))
-        .addStringOption(option => option.setName('ColorHex').setDescription('Color en hexadecimal para el embed').setRequired(true).setMinLength(6).setMaxLength(6))
-        .addRoleOption(option => option.setName('RolDeMenciones').setDescription('Rol para mencionar en los anuncios').setRequired(false))
+        .addStringOption(option => option.setName('canal_de_twitch').setDescription('El usuario de Twitch').setRequired(true).setMinLength(1).setMaxLength(25))
+        .addChannelOption(option => option.setName('canal_de_discord').setDescription('Canal para los anuncios').setRequired(true).addChannelTypes(ChannelType.GuildText).addChannelTypes(ChannelType.GuildAnnouncement))
+        .addStringOption(option => option.setName('color_hex').setDescription('Color en hexadecimal para el embed').setRequired(true).setMinLength(6).setMaxLength(6))
+        .addRoleOption(option => option.setName('rol_de_menciones').setDescription('Rol para mencionar en los anuncios').setRequired(false))
         .setDMPermission(false),
     async execute(interaction) {
         try {
-            const tw_canal = (interaction.options.getString('CanalDeTwitch').replace(/[^\w]/g, ""));
-            const ds_canal = (interaction.options.getChannel('CanalDeDiscord').id.replace(/[^\w]/g, ""));
-            const rol_menciones = (interaction.options.getRole('RolDeMenciones') ? interaction.options.getRole('RolDeMenciones').id : null);
-            const color_hex = (interaction.options.getString('ColorHex').replace(/[^\w]/g, ""));
+            const tw_canal = (interaction.options.getString('canal_de_twitch').replace(/[^\w]/g, ""));
+            const ds_canal = (interaction.options.getChannel('canal_de_discord').id.replace(/[^\w]/g, ""));
+            const rol_menciones = (interaction.options.getRole('rol_de_menciones') ? interaction.options.getRole('rol_de_menciones').id : null);
+            const color_hex = (interaction.options.getString('color_hex').replace(/[^\w]/g, ""));
 
             if (!helper.validateHexColor(color_hex)) {
                 return interaction.reply({ content: '❌ Hooman, eso no es un color válido...', ephemeral: true });

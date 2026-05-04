@@ -14,7 +14,7 @@ module.exports = {
         .setName('logconfig')
         .setDescription('Configurar los canales de logs del servidor')
         .addStringOption(option => option
-            .setName('Configuracion')
+            .setName('configuracion')
             .setDescription('Qué configuración deseas ajustar')
             .setRequired(true)
             .addChoices(
@@ -22,12 +22,12 @@ module.exports = {
             )
         )
         .addBooleanOption(option => option
-            .setName('Habilitado')
+            .setName('habilitado')
             .setDescription('Activar o desactivar este log')
             .setRequired(true)
         )
         .addChannelOption(option => option
-            .setName('Canal')
+            .setName('canal')
             .setDescription('Canal donde se enviarán los logs')
             .setRequired(false)
             .addChannelTypes(ChannelType.GuildText)
@@ -36,9 +36,9 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         try {
-            const setting_name = interaction.options.getString('Configuracion');
-            const enabled      = interaction.options.getBoolean('Habilitado');
-            const channel      = interaction.options.getChannel('Canal');
+            const setting_name = interaction.options.getString('configuracion');
+            const enabled      = interaction.options.getBoolean('habilitado');
+            const channel      = interaction.options.getChannel('canal');
 
             const updateData = { setting_enabled: enabled };
             if (channel) updateData.setting_channel = channel.id;

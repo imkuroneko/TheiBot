@@ -13,7 +13,7 @@ module.exports = {
     async execute(oldState, newState) {
         try {
             if(newState.channelId == null && newState.member.id == config.clientId) {
-                const logVoice = await LogSetting.findOne({ where: { setting_name: 'voice_richpresence' } });
+                const logVoice = await LogSetting.findOne({ where: { setting_name: 'voice_presence' } });
                 if(logVoice?.setting_enabled && logVoice?.setting_channel) {
                     const voiceChannelReconn = newState.guild.channels.cache.get(logVoice.setting_channel);
                     joinVoiceChannel({

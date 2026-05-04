@@ -5,15 +5,12 @@ const path = require('path');
 const { ownerId } = require(path.resolve('./config/bot'));
 
 // Module script ===========================================================================================================
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     try {
         if(message.author.id != ownerId) { return; }
 
-        message.reply('🦄 Reiniciando bot~');
-
-        setTimeout(() => {
-            process.exit();
-        }, 2500);
+        await message.reply('🦄 Reiniciando bot~');
+        process.exit(0);
     } catch(error) {
         message.reply('`[cmdPrefix:restartbot]` error: '+error.message);
         console.error('[cmdPrefix:restartbot]', error.message);
