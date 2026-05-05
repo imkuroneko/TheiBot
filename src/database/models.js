@@ -46,6 +46,12 @@ const LogSetting = sequelize.define('log_settings', {
     setting_channel:     { type: DataTypes.STRING, allowNull: true, defaultValue: null },
 }, { timestamps: false, freezeTableName: true });
 
+const BotActivity = sequelize.define('bot_activities', {
+    id:      { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    type:    { type: DataTypes.STRING, allowNull: false },
+    message: { type: DataTypes.STRING, allowNull: false },
+}, { timestamps: false, freezeTableName: true });
+
 // Seed ====================================================================================================================
 const LOG_SETTINGS_SEED = [
     { setting_name: 'log_user_entrance',   setting_description: 'Log de entrada de miembros' },
@@ -72,5 +78,6 @@ module.exports = {
     StreamTracker,
     TokenCache,
     GuildMemberLog,
-    LogSetting, LOG_SETTINGS_SEED
+    LogSetting, LOG_SETTINGS_SEED,
+    BotActivity,
 };

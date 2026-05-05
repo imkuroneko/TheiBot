@@ -1,7 +1,7 @@
 // Load required resources =================================================================================================
 const { Events } = require('discord.js');
 const path = require('path');
-const { joinVoiceChannel } = require('@discordjs/voice');
+const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
 const config = require(path.resolve('./config/bot'));
@@ -12,13 +12,21 @@ module.exports = {
     name: Events.VoiceStateUpdate,
     async execute(oldState, newState) {
         try {
-            if(newState.channelId == null && newState.member.id == config.clientId) {
+            const isBot        = newState.member?.id === config.clientId;
+            const leftChannel  = oldState.channelId != null && newState.channelId == null;
+
+            if (isBot && leftChannel) {
                 const logVoice = await LogSetting.findOne({ where: { setting_name: 'voice_presence' } });
                 if(logVoice?.setting_enabled && logVoice?.setting_channel) {
+                    const existing = getVoiceConnection(newState.guild.id);
+                    if (existing) existing.destroy();
+
                     const voiceChannelReconn = newState.guild.channels.cache.get(logVoice.setting_channel);
+                    if (!voiceChannelReconn) { return; }
+
                     joinVoiceChannel({
-                        channelId: voiceChannelReconn.id,
-                        guildId: voiceChannelReconn.guild.id,
+                        channelId:      voiceChannelReconn.id,
+                        guildId:        voiceChannelReconn.guild.id,
                         adapterCreator: voiceChannelReconn.guild.voiceAdapterCreator,
                         selfDeaf: false
                     });

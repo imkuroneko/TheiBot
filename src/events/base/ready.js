@@ -1,11 +1,10 @@
 // Load required resources =================================================================================================
 const { Events, ActivityType } = require('discord.js');
 const path = require('path');
-const { joinVoiceChannel, VoiceConnectionStatus, entersState } = require('@discordjs/voice');
+const { joinVoiceChannel } = require('@discordjs/voice');
 
 // Load configuration files ================================================================================================
-const { LogSetting } = require(path.resolve('./src/database/models'));
-const activity = require(path.resolve('./data/json/misc/activity.json'));
+const { LogSetting, BotActivity } = require(path.resolve('./src/database/models'));
 
 // Module script ===========================================================================================================
 module.exports = {
@@ -14,32 +13,35 @@ module.exports = {
 
         // Bot presence (status)
         try {
-            client.user.setPresence({
-                activities: [{ name: "Hoomans en Discord™️", type: ActivityType.Watching }],
-                status: 'dnd',
-            });
+            const TYPE_MAP = {
+                competing: ActivityType.Competing,
+                listening: ActivityType.Listening,
+                streaming: ActivityType.Streaming,
+                playing:   ActivityType.Playing,
+                watching:  ActivityType.Watching,
+            };
 
-            if(activity.length > 0) {
-                var i = 0;
-                setInterval(() => {
-                    i = (i + 1) % activity.length;
-
-                    let type;
-                    switch(activity[i].type.toLowerCase()) {
-                        case 'competing': type = ActivityType.Competing; break;
-                        case 'listening': type = ActivityType.Listening; break;
-                        case 'streaming': type = ActivityType.Streaming; break;
-                        case 'playing':   type = ActivityType.Playing; break;
-                        case 'watching':  type = ActivityType.Watching; break;
-                        default: type = ActivityType.Watching; break;
-                    }
-
-                    client.user.setPresence({
-                        activities: [{ name: activity[i].message, type: type }],
-                        status: 'dnd',
-                    });
-                }, 60000);
+            function applyActivity(entry) {
+                client.user.setPresence({
+                    activities: [{ name: entry.message, type: TYPE_MAP[entry.type.toLowerCase()] ?? ActivityType.Watching }],
+                    status: 'dnd',
+                });
             }
+
+            let lastId = null;
+
+            async function rotateActivity() {
+                const all = await BotActivity.findAll();
+                if (!all.length) { return; }
+
+                const pool = all.length > 1 ? all.filter(a => a.id !== lastId) : all;
+                const pick = pool[Math.floor(Math.random() * pool.length)];
+                lastId = pick.id;
+                applyActivity(pick);
+            }
+
+            await rotateActivity();
+            setInterval(rotateActivity, 60_000);
         } catch(error) {
             console.error('[event:base:ready:setPresence]', error.message);
         }
@@ -52,25 +54,12 @@ module.exports = {
                 connectToVoice(voiceChannel);
 
                 function connectToVoice(chn) {
-                    const conn = joinVoiceChannel({ channelId: chn.id, guildId: chn.guild.id, adapterCreator: chn.guild.voiceAdapterCreator, selfDeaf: false });
-
-                    conn.on(VoiceConnectionStatus.Disconnected, async () => {
-                        try {
-                            // Esperar hasta 5s a que Discord reconecte solo (ej: corte de red breve)
-                            await Promise.race([
-                                entersState(conn, VoiceConnectionStatus.Signalling, 5_000),
-                                entersState(conn, VoiceConnectionStatus.Connecting, 5_000),
-                            ]);
-                        } catch {
-                            // No se recuperó → destruir y reconectar desde cero
-                            if(conn.state.status !== VoiceConnectionStatus.Destroyed) {
-                                conn.destroy();
-                            }
-                            connectToVoice(chn);
-                        }
+                    return joinVoiceChannel({
+                        channelId: chn.id,
+                        guildId: chn.guild.id,
+                        adapterCreator: chn.guild.voiceAdapterCreator,
+                        selfDeaf: false
                     });
-
-                    return conn;
                 }
             }
         } catch(error) {
