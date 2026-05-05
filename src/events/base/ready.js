@@ -31,16 +31,20 @@ module.exports = {
             let lastId = null;
 
             async function rotateActivity() {
-                const all = await BotActivity.findAll();
-                if (!all.length) { return; }
+                try {
+                    const all = await BotActivity.findAll();
+                    if (!all.length) { return; }
 
-                const pool = all.length > 1 ? all.filter(a => a.id !== lastId) : all;
-                const pick = pool[Math.floor(Math.random() * pool.length)];
-                lastId = pick.id;
-                applyActivity(pick);
+                    const pool = all.length > 1 ? all.filter(a => a.id !== lastId) : all;
+                    const pick = pool[Math.floor(Math.random() * pool.length)];
+                    lastId = pick.id;
+                    applyActivity(pick);
+                } catch(error) {
+                    console.error('[event:base:ready:rotateActivity]', error.message);
+                }
             }
 
-            await rotateActivity();
+            rotateActivity();
             setInterval(rotateActivity, 60_000);
         } catch(error) {
             console.error('[event:base:ready:setPresence]', error.message);
