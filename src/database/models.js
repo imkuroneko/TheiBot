@@ -52,6 +52,21 @@ const BotActivity = sequelize.define('bot_activities', {
     message: { type: DataTypes.STRING, allowNull: false },
 }, { timestamps: false, freezeTableName: true });
 
+const YoutubeChannel = sequelize.define('youtube_channels', {
+    youtube_channel_id:      { type: DataTypes.STRING, primaryKey: true },
+    youtube_channel_handle:  { type: DataTypes.STRING },
+    youtube_channel_name:    { type: DataTypes.STRING },
+    youtube_channel_avatar:  { type: DataTypes.STRING, allowNull: true, defaultValue: null },
+    discord_channel_id:      { type: DataTypes.STRING },
+    discord_mention_role_id: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
+}, { timestamps: false, freezeTableName: true });
+
+const YoutubeTracker = sequelize.define('youtube_tracker', {
+    video_id:           { type: DataTypes.STRING, primaryKey: true },
+    youtube_channel_id: { type: DataTypes.STRING },
+    published_at:       { type: DataTypes.STRING },
+}, { timestamps: false, freezeTableName: true });
+
 // Seed ====================================================================================================================
 const LOG_SETTINGS_SEED = [
     { setting_name: 'log_user_entrance',   setting_description: 'Log de entrada de miembros' },
@@ -80,4 +95,6 @@ module.exports = {
     GuildMemberLog,
     LogSetting, LOG_SETTINGS_SEED,
     BotActivity,
+    YoutubeChannel,
+    YoutubeTracker,
 };

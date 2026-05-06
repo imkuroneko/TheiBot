@@ -1,6 +1,6 @@
 {
   "name": "theibot",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "Bot utilitario para Discord",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,6 @@
     "url": "git+https://github.com/imkuroneko/theibot.git"
   },
   "dependencies": {
-    "@discordjs/rest": "^2.6.1",
     "@discordjs/voice": "^0.19.2",
     "axios": "^1.16.0",
     "canvas": "^3.2.3",
@@ -32,6 +31,7 @@
     "cron": "^4.4.0",
     "dayjs": "^1.11.20",
     "discord.js": "^14.26.4",
+    "fast-xml-parser": "^5.7.3",
     "md5": "^2.3.0",
     "os": "^0.1.2",
     "sequelize": "^6.37.8",
