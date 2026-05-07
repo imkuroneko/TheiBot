@@ -40,7 +40,7 @@ const script = (client) => new cron.CronJob(
                         if(streamCount == 0) {
                             let alert_tag = '';
                             if(account.discord_mention_role_id) {
-                                alert_tag = `<@&${account.discord_mention_role_id}>`;
+                                alert_tag = account.discord_mention_role_id === channel.guild.id ? '@everyone' : `<@&${account.discord_mention_role_id}>`;
                             }
 
                             // enviar el embed
