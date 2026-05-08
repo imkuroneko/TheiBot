@@ -16,9 +16,8 @@ const COLOR_VIDEO = 0x87CEEB;
 const COLOR_SHORT = 0xAAFF66;
 
 // Module script ===========================================================================================================
-// Se ejecuta cada 15 minutos — el feed RSS es gratuito y sin cuota
 const script = (client) => new cron.CronJob(
-    '0 */15 * * * *',
+    '0 */5 * * * *',
     async function() {
         try {
             const channels = await YoutubeChannel.findAll();

@@ -13,7 +13,7 @@ const dayjs = require('dayjs');
 
 // Module script ===========================================================================================================
 const script = (client) => new cron.CronJob(
-    '*/15 * * * * *',
+    '0 */5 * * * *',
     async function() {
         try {
             const twAccounts = await Streamer.findAll();
@@ -40,7 +40,8 @@ const script = (client) => new cron.CronJob(
                         if(streamCount == 0) {
                             let alert_tag = '';
                             if(account.discord_mention_role_id) {
-                                alert_tag = account.discord_mention_role_id === channel.guild.id ? '@everyone' : `<@&${account.discord_mention_role_id}>`;
+                                const roleId = String(account.discord_mention_role_id);
+                                alert_tag = (roleId === '@everyone' || roleId === String(channel.guild.id)) ? '@everyone' : `<@&${roleId}>`;
                             }
 
                             // enviar el embed
